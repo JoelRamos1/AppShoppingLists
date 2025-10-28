@@ -4,6 +4,9 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\ShoppingList\Create;
+use App\Livewire\ShoppingList\Index;
+use App\Livewire\ShoppingList\Show;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -14,6 +17,12 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('shopping-lists/index', Index::class)->name('shopping-lists.index');
+    Route::get('shopping-lists', Create::class)->name('shopping-lists.create');
+    Route::get('shopping-lists/show/{id}', Show::class)->name('shopping-lists.show');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

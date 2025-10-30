@@ -7,12 +7,15 @@ use App\Livewire\Settings\TwoFactor;
 use App\Livewire\ShoppingList\Create;
 use App\Livewire\ShoppingList\Index;
 use App\Livewire\ShoppingList\Show;
+use App\Livewire\Test;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -22,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('shopping-lists/index', Index::class)->name('shopping-lists.index');
     Route::get('shopping-lists', Create::class)->name('shopping-lists.create');
     Route::get('shopping-lists/show/{id}', Show::class)->name('shopping-lists.show');
+
+    Route::get('/test', Test::class)->name('test');
 });
 
 Route::middleware(['auth'])->group(function () {

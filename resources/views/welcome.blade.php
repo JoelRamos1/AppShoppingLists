@@ -32,6 +32,9 @@
                             Dashboard
                         </a>
                     @else
+                        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg text-center">
+    <a href="/google-auth/redirect" class="text-sm text-gray-600 underline">SSO amb Google</a>
+</div>
                         <a
                             href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"

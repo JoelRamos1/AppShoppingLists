@@ -19,14 +19,14 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/google-auth/redirect', function() {
-    return Socialite::driver('google')->stateless()->redirect();
+    return Socialite::driver('google')->redirect();
 });
 
 Route::get('/google-auth/callback', function () {
     $user_google = Socialite::driver('google')->stateless()->user();
 
     $user = User::updateOrCreate([
-        'email' => $user_google->email,
+        'google_id' => $user_google->id,
     ], [
         'name' => $user_google->name,
         'email' => $user_google->email,
@@ -34,7 +34,11 @@ Route::get('/google-auth/callback', function () {
 
     Auth::login($user);
 
-    return redirect('/dashboard');
+    return redirect()->route('dashboard');
+});
+
+Route::get('info', function () {
+    return view('info');
 });
 
 Route::view('dashboard', 'dashboard')

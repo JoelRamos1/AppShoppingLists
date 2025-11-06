@@ -5,18 +5,17 @@ namespace App\Livewire\ShoppingList;
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $shopping_lists;
+    use WithPagination;
+
+    // public $shopping_lists;
 
     public function mount()
     {
-        $query = ShoppingList::where(function ($q) {
-            $q->where('owner_id', Auth::id());
-        });
-
-        $this->shopping_lists = $query->get();
+        // $this->shopping_lists = ShoppingList::paginate(5);
     }
 
     public function delete(string $id)
@@ -33,6 +32,12 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.shopping-list.index');
+        $query = ShoppingList::where(function ($q) {
+            $q->where('owner_id', Auth::id());
+        });
+
+        $shopping_lists = $query->orderByDesc()->paginate(5);
+
+        return view('livewire.shopping-list.index', compact('shopping_lists'));
     }
 }

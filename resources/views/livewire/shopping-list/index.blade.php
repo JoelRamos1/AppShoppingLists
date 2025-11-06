@@ -20,6 +20,9 @@
                         </div>
                     </div>
                 @endforeach
+                <div>
+                    {{ $shopping_lists->links() }}
+                </div>
             @else
                 <flux:text>{{ __('You have not created any lists') }}</flux:text>
             @endif

@@ -67,4 +67,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(ShoppingList::class, 'owner_id');
     }
+
+    public function sharedLists()
+    {
+        return $this->belongsToMany(ShoppingList::class, 'shopping_list_user')
+                    ->withPivot('role')
+                    ->withTimestamps();
+    }
+
+    public function owns(ShoppingList $shoppingList): bool
+    {
+        return $shoppingList->owner_id === $this->id;
+    }
+
+    public function canEdit(ShoppingList $shoppingList)
+    {
+        return $this->owns($shoppingList) ||
+               $shoppingList->members()
+                            ->where('user_id')
+                            ->wherePivot('role', 'editor')
+                            ->exists();
+    }
 }

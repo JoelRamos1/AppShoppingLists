@@ -15,7 +15,7 @@
                             <flux:text>{{__('Created ')}}{{$shop_list->created_at}}</flux:text>
                         </div>
                         <div class="flex justify-self-end gap-2">
-                            <flux:button variant="filled" icon="share" wire:click="share"></flux:button>
+                            <livewire:shopping-list.components.share-menu wire:key="$shop_list->id">
                             <flux:button variant="danger" color="red" icon="trash" wire:click="delete({{$shop_list->id}})" wire:confirm="{{__('Are you sure you want to delete this shopping list?')}}"></flux:button>
                         </div>
                     </div>

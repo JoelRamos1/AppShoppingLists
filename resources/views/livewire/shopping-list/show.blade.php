@@ -1,11 +1,19 @@
 <div>
     {{-- Do your work, then step back. --}}
+    @if (session()->has('success'))
+            <div class="bg-green-500 text-white font-semibold flex flex-row gap-2 px-2 py-4" x-data="{show:true}" x-show="show" x-init="setTimeout(() => show = false, 3000)">
+                <flux:icon.check-circle variant="outline"/> {{session('success')}}
+            </div>
+        @endif
     <div class="flex flex-row gap-2">
         <flux:heading size="xl">{{ $shopping_list->title }}</flux:heading>
-        <flux:modal.trigger name="edit-shopping-list">
-            <flux:button icon="pencil-square"></flux:button>
-        </flux:modal.trigger>
-        <flux:button variant="danger" icon="trash" wire:click="deleteShoppingList"/>
+        <flux:dropdown>
+            <flux:button icon="cog-8-tooth" icon:variant="outline"></flux:button>
+            <flux:menu>
+                <flux:menu.item icon="pencil">Edit Post</flux:menu.item>
+                <flux:menu.item icon="trash" variant="danger">Delete Post</flux:menu.item>
+            </flux:menu>
+        </flux:dropdown>
     </div>
 
     <form wire:submit="save" class="flex flex-row gap-2 my-4">
@@ -37,18 +45,4 @@
             <flux:text>{{ __('There are no categories in this shopping list. Create one above.') }}</flux:text>
         @endforelse
     </div>
-    <flux:modal name="edit-shopping-list">
-        <div>
-            <div>
-                <flux:heading>{{ __('Edit Shopping List') }}</flux:heading>
-            </div>
-            <form wire:sumbit="updateTitle">
-                <flux:input
-                    wire:model="newTitle"
-                    label="{{ __('New Title') }}"
-                />
-                <flux:button type="submit" icon="arrow-path" variant="primary">{{ __('Update Shopping List')}}</flux:button>
-            </form>
-        </div>
-    </flux:modal>
 </div>

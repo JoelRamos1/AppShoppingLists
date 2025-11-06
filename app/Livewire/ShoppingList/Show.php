@@ -16,23 +16,11 @@ class Show extends Component
     #[Validate('required|string|max:255')]
     public $name = '';
 
-    public $newTitle;
+    public $newTitle = '';
 
     public function mount()
     {
         $this->shopping_list = ShoppingList::find($this->id);
-    }
-
-    public function updateTitle() {
-        // $this->validate([
-        //     'newTitle' => 'required|string|max:255',
-        // ]);
-
-        $this->shopping_list->update([
-            'title' => $this->newTitle,
-        ]);
-
-        $this->reset('newTitle');
     }
 
     public function deleteShoppingList()

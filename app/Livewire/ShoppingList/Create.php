@@ -21,9 +21,11 @@ class Create extends Component
             'title' => $this->title,
         ]);
 
+        $list = ShoppingList::latest()->first();
+
         session()->flash('success', 'Shopping list created successfully');
 
-        return $this->redirectRoute('shopping-lists.index');
+        return $this->redirectRoute('shopping-lists.show', $list->id);
     }
 
     public function render()

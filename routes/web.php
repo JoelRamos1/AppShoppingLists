@@ -8,6 +8,7 @@ use App\Livewire\ShoppingList\Create;
 use App\Livewire\ShoppingList\Index;
 use App\Livewire\ShoppingList\Show;
 use App\Livewire\Test;
+use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Socialite\Facades\Socialite;

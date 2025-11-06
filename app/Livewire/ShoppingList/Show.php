@@ -25,14 +25,19 @@ class Show extends Component
 
     public function deleteShoppingList()
     {
+
+        $this->authorize('delete', $this->shopping_list);
+
         $this->shopping_list->delete();
 
-        $this->redirect('shopping-lists.index');
+        $this->redirectRoute('shopping-lists.index');
     }
 
     public function save()
     {
         $this->validate();
+
+        $this->authorize('create', $this->shopping_list);
 
         Category::create([
             'shopping_list_id' => $this->id,
@@ -47,6 +52,8 @@ class Show extends Component
     public function delete(int $id) {
         $category = Category::findOrFail($id);
 
+        $this->authorize('delete', $this->shopping_list);
+
         $category->delete();
 
         $this->redirectRoute('shopping-lists.show', $this->id);
@@ -54,6 +61,8 @@ class Show extends Component
 
     public function render()
     {
-       return view('livewire.shopping-list.show');
+        $this->authorize('view', $this->shopping_list);
+
+         return view('livewire.shopping-list.show');
     }
 }

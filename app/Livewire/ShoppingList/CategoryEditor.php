@@ -25,6 +25,8 @@ class CategoryEditor extends Component
     {
         $this->validate();
 
+        $this->authorize('create', $this->category->shoppingList);
+
         $this->category->products()->create([
             'name' => $this->name,
         ]);
@@ -38,6 +40,8 @@ class CategoryEditor extends Component
     {
         $product = Product::find($id);
 
+        $this->authorize('update', $this->category->shoppingList);
+
         $product->update([
             'is_completed' => ! $product->is_completed,
         ]);
@@ -48,6 +52,8 @@ class CategoryEditor extends Component
     public function updateProduct(int $id)
     {
         $product = Product::findOrFail($id);
+
+        $this->authorize('update', $this->category->shoppingList);
 
         $product->update([
             'name' => $this->newProductNames[$id],
@@ -61,6 +67,8 @@ class CategoryEditor extends Component
     public function deleteProduct(int $id)
     {
         $product = Product::findOrFail($id);
+
+        $this->authorize('delete', $this->category->shoppingList);
 
         $product->delete();
 

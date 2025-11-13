@@ -3,33 +3,35 @@
 namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
+use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ShoppingListEditor extends Component
 {
-    public ShoppingList $shopping_list;
+    public ShoppingList $shoppingList;
 
-    #[Validate('required|string|max:255')]
-    public $newTitle;
+    public $newTitle = '';
 
-    public function mount(ShoppingList $shopping_list)
-    {
-        $this->shopping_list = $shopping_list;
+    public function mount(int $id) {
+        $this->shoppingList = ShoppingList::findOrFail($id);
     }
 
-    public function updateName(int $id) {
-        $this->validate();
+    public function updateTitle() {
+        $this->authorize('update', $this->shoppingList);
 
-        $shopping_list = ShoppingList::findOrFail($id);
-
-        $shopping_list->update([
+        $this->shoppingList->update([
             'title' => $this->newTitle,
         ]);
 
-        $this->reset('newTitle');
+        return $this->redirectRoute('shopping-lists.show', $this->shoppingList->id);
+    }
 
-        $this->shopping_list->load('categories');
+    public function invite()
+    {
+        $this->validate();
+
+        return $this->redirectRoute('shopping-lists.index');
     }
 
     public function render()

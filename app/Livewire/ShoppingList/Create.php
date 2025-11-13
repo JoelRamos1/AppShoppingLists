@@ -16,16 +16,18 @@ class Create extends Component
     {
         $this->validate();
 
-        ShoppingList::create([
+        $shoppingList = ShoppingList::create([
             'owner_id' => Auth::id(),
             'title' => $this->title,
         ]);
 
-        $list = ShoppingList::latest()->first();
+        $shoppingList->members()->attach(Auth::id(), ['role' =>'owner']);
+
+        // $list = ShoppingList::latest()->first();
 
         session()->flash('success', 'Shopping list created successfully');
 
-        return $this->redirectRoute('shopping-lists.show', $list->id);
+        return $this->redirectRoute('shopping-lists.show', $shoppingList->id);
     }
 
     public function render()

@@ -21,8 +21,7 @@ class ShoppingListPolicy
      */
     public function view(User $user, ShoppingList $shoppingList): bool
     {
-        return $user->id === $shoppingList->owner_id ||
-               $shoppingList->members()->contains($user);
+        return $user->id === $shoppingList->owner_id;
     }
 
     /**
@@ -30,7 +29,7 @@ class ShoppingListPolicy
      */
     public function create(User $user, ShoppingList $shoppingList): bool
     {
-        return $shoppingList->canBeEditedBy($user);
+        return $user->id === $shoppingList->owner_id;
     }
 
     /**
@@ -38,7 +37,7 @@ class ShoppingListPolicy
      */
     public function update(User $user, ShoppingList $shoppingList): bool
     {
-        return $shoppingList->canBeEditedBy($user);
+        return $user->id === $shoppingList->owner_id;
     }
 
     /**
@@ -46,7 +45,7 @@ class ShoppingListPolicy
      */
     public function delete(User $user, ShoppingList $shoppingList): bool
     {
-        return $shoppingList->isOwnedBy($user);
+        return $user->id === $shoppingList->owner_id;
     }
 
     /**
@@ -67,18 +66,6 @@ class ShoppingListPolicy
 
     public function invite(User $user, ShoppingList $shoppingList): bool
     {
-        return $shoppingList->isOwnedBy($user);
-    }
-
-    public function detach(User $user, ShoppingList $shoppingList, User $target): bool
-    {
-        if($shoppingList->isOwnedBy($user)) {
-            return true;
-        }
-
-        return $user->id === $target->id && $shoppingList->members()
-                                                         ->where('user_id', $user->id)
-                                                         ->wherePivot('role', 'editor')
-                                                         ->exists();
+        return $$user->id === $shoppingList->owner_id;
     }
 }

@@ -22,7 +22,7 @@ class ShoppingList extends Model
 
     public function members()
     {
-        return $this->belongsToMany(User::class, 'list_user')
+        return $this->belongsToMany(User::class, 'shopping_list_user', 'user_id', 'shopping_list_id')
                     ->withPivot('role')
                     ->withTimestamps();
     }
@@ -32,17 +32,17 @@ class ShoppingList extends Model
         return $this->hasMany(Category::class);
     }
 
-    public function isOwnedBy(User $user): bool
-    {
-        return $this->owner_id === $user->id;
-    }
+    // public function isOwnedBy(User $user): bool
+    // {
+    //     return $this->owner_id === $user->id;
+    // }
 
-    public function canBeEditedBy(User $user)
-    {
-        return $this->isOwnedBy($user) ||
-               $this->members()
-                    ->where('user_id', $user->id)
-                    ->wherePivot('role', 'editor')
-                    ->exists();
-    }
+    // public function canBeEditedBy(User $user)
+    // {
+    //     return $this->isOwnedBy($user) ||
+    //            $this->members()
+    //                 ->where('user_id', $user->id)
+    //                 ->wherePivot('role', 'editor')
+    //                 ->exists();
+    // }
 }

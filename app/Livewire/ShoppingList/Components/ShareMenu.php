@@ -4,32 +4,33 @@ namespace App\Livewire\ShoppingList\Components;
 
 use App\Models\ShoppingList;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ShareMenu extends Component
 {
-    #[Validate('required|email|exists:users,email')]
-    public string $userEmail;
-    #[Validate('required|in:editor')]
-    public $role;
+    public ShoppingList $shoppingList;
 
-    public function invite(ShoppingList $shoppingList)
+    #[Validate('required|email|exists:users,email')]
+    public string $inviteEmail;
+    #[Validate('required|in:editor')]
+    public $inviteRole;
+
+    public function invite()
     {
         $this->validate();
 
-        $invite = User::where('email', $this->userEmail)->firstOrFail();
+        $user = User::where('email', $this->inviteEmail)->firstOrFail();
 
-        $already = $shoppingList->members()
-                                ->where('user_id', $invite->id);
+        // if ($this->shoppingList->members->contains($user)) {
+        //     // $this->error = __('User already has access');
+        //     return;
+        // };
 
-        if ($already) {
-            return;
-        }
+        $this->shoppingList->members()->attach($user->id, ['role' => $this->inviteRole]);
 
-        $shoppingList->members()->attach($invite->id, ['role' => $this->role]);
-
-
+        $this->reset(['inviteEmail']);
     }
 
     public function render()

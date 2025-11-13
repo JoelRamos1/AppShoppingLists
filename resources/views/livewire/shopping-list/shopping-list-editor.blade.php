@@ -1,21 +1,35 @@
 <div>
     {{-- The Master doesn't talk, he acts. --}}
-    <flux:modal.trigger name="edit-shopping-list">
-        <flux:button icon="pencil-square"></flux:button>
-    </flux:modal.trigger>
+    <div>
+        <flux:heading size="xl">{{ __('Editing Shopping List ').$shoppingList->title }}</flux:heading>
+    </div>
 
-    <flux:modal name="edit-shopping-list">
+    <div>
         <div>
-            <div>
-                <flux:heading>{{ __('Edit Shopping List') }}</flux:heading>
-            </div>
-            <form wire:sumbit="updateTitle{{ $shopping_list->id }}">
+            <flux:heading size="lg">{{ __('Basic Information')}}</flux:heading>
+            <form wire:submit="updateTitle">
                 <flux:input
+                    label="{{__('Update Title')}}"
+                    placeholder="{{$shoppingList->title}}"
                     wire:model="newTitle"
-                    label="{{ __('New Title') }}"
                 />
-                <flux:button type="submit" icon="arrow-path" variant="primary">{{ __('Update Shopping List')}}</flux:button>
+                <flux:button variant="primary" icon="arrow-path" type="submit">{{ __('Update Title')}}</flux:button>
             </form>
         </div>
-    </flux:modal>
+        <div>
+            <flux:heading size="lg">{{ __('Share this Shopping List')}}</flux:heading>
+            <flux:text>{{ __('Share this shopping list with another user')}}</flux:text>
+        </div>
+
+        <form wire:submit="invite" class="flex flex-col gap-4">
+            <flux:input
+                wire:model="userEmail"
+                label="{{ __('User Email')}}"
+            />
+            <flux:select wire:model="role" label="{{ __('Role')}}" placeholder="{{ __('Role') }}">
+                <flux:select.option value="editor">{{ __('Editor')}}</flux:select.option>
+            </flux:select>
+            <flux:button variant="primary" type="submit">{{ __('Share')}}</flux:button>
+        </form>
+    </div>
 </div>

@@ -7,6 +7,7 @@ use App\Livewire\Settings\TwoFactor;
 use App\Livewire\ShoppingList\Create;
 use App\Livewire\ShoppingList\Index;
 use App\Livewire\ShoppingList\Shared;
+use App\Livewire\ShoppingList\ShoppingListEditor;
 use App\Livewire\ShoppingList\Show;
 use App\Livewire\Test;
 use App\Models\ShoppingList;
@@ -50,8 +51,9 @@ Route::view('dashboard', 'dashboard')
 Route::middleware(['auth'])->group(function () {
     Route::get('shopping-lists/index', Index::class)->name('shopping-lists.index');
     Route::get('shopping-lists/shared', Shared::class)->name('shopping-lists.shared');
-    Route::get('shopping-lists', Create::class)->name('shopping-lists.create');
+    Route::get('shopping-lists/create', Create::class)->name('shopping-lists.create');
     Route::get('shopping-lists/show/{id}', Show::class)->name('shopping-lists.show');
+    Route::get('shopping-list/edit/{id}', ShoppingListEditor::class)->name('shopping-list.edit');
 
     Route::get('/test', Test::class)->name('test');
 });

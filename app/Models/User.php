@@ -70,22 +70,22 @@ class User extends Authenticatable
 
     public function sharedLists()
     {
-        return $this->belongsToMany(ShoppingList::class, 'shopping_list_user')
+        return $this->belongsToMany(ShoppingList::class, 'shopping_list_user', 'shopping_list_id', 'user_id')
                     ->withPivot('role')
                     ->withTimestamps();
     }
 
-    public function owns(ShoppingList $shoppingList): bool
-    {
-        return $shoppingList->owner_id === $this->id;
-    }
+    // public function owns(ShoppingList $shoppingList): bool
+    // {
+    //     return $shoppingList->owner_id === $this->id;
+    // }
 
-    public function canEdit(ShoppingList $shoppingList)
-    {
-        return $this->owns($shoppingList) ||
-               $shoppingList->members()
-                            ->where('user_id')
-                            ->wherePivot('role', 'editor')
-                            ->exists();
-    }
+    // public function canEdit(ShoppingList $shoppingList)
+    // {
+    //     return $this->owns($shoppingList) ||
+    //            $shoppingList->members()
+    //                         ->where('user_id')
+    //                         ->wherePivot('role', 'editor')
+    //                         ->exists();
+    // }
 }

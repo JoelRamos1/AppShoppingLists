@@ -15,11 +15,13 @@ class ShoppingList extends Model
         'is_shared',
     ];
 
+    // Returns the owner of the list
     public function owner()
     {
         return $this->belongTo(User::class, 'owner_id');
     }
 
+    // Returns the members (owner, editors) of the shopping list
     public function members()
     {
         return $this->belongsToMany(User::class, 'shopping_list_user', 'user_id', 'shopping_list_id')
@@ -27,6 +29,7 @@ class ShoppingList extends Model
                     ->withTimestamps();
     }
 
+    // Returns the categories of the shopping list
     public function categories()
     {
         return $this->hasMany(Category::class);

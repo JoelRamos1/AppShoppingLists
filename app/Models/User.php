@@ -63,11 +63,13 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    // Returns owned shopping lists
     public function ownedLists()
     {
         return $this->hasMany(ShoppingList::class, 'owner_id');
     }
 
+    // returns shared shopping lists
     public function sharedLists()
     {
         return $this->belongsToMany(ShoppingList::class, 'shopping_list_user', 'shopping_list_id', 'user_id')

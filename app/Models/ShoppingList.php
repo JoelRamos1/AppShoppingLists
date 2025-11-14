@@ -24,7 +24,7 @@ class ShoppingList extends Model
     // Returns the members (owner, editors) of the shopping list
     public function members()
     {
-        return $this->belongsToMany(User::class, 'shopping_list_user', 'user_id', 'shopping_list_id')
+        return $this->belongsToMany(User::class, 'shopping_list_user')
                     ->withPivot('role')
                     ->withTimestamps();
     }

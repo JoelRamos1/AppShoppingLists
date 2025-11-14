@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex justify-self-end gap-2">
                             <flux:button variant="ghost" icon="pencil" href="{{route('shopping-list.edit', $shop_list->id)}}"></flux:button>
-                            <livewire:shopping-list.components.share-menu :shoppingList="$shop_list" :key="'shoppingList-'.$shop_list->id" />
+                            <livewire:shopping-list.components.share-menu :shoppingList="$shop_list" :key="'shoppingList-'.$shop_list->id" lazy/>
                             <flux:button variant="danger" color="red" icon="trash" wire:click="delete({{$shop_list->id}})" wire:confirm="{{__('Are you sure you want to delete this shopping list?')}}"></flux:button>
                         </div>
                     </div>

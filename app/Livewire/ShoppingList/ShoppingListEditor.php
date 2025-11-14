@@ -13,6 +13,10 @@ class ShoppingListEditor extends Component
 
     public $newTitle = '';
 
+    public $userEmail = '';
+
+    public $role = 'editor';
+
     public function mount(int $id) {
         $this->shoppingList = ShoppingList::findOrFail($id);
     }
@@ -29,7 +33,18 @@ class ShoppingListEditor extends Component
 
     public function invite()
     {
-        $this->validate();
+        $this->validate([
+            'userEmail' => 'required',
+            'role' => 'required',
+        ]);
+
+        $user = User::where('email', $this->userEmail)->first();
+
+        $this->shoppingList->members()->attach($user->id, ['role' => $this->role]);
+
+        $this->shoppingList->update([
+            'is_shared' => true,
+        ]);
 
         return $this->redirectRoute('shopping-lists.index');
     }

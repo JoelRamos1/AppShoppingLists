@@ -24,7 +24,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.shopping-list.index', ['shopping_lists' => ShoppingList::Where('owner_id', Auth::id())
+        return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::Where('owner_id', Auth::id())
                                                                                      ->latest()
                                                                                      ->paginate(10)]);
     }

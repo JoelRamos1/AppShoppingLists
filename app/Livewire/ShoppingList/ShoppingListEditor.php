@@ -40,13 +40,21 @@ class ShoppingListEditor extends Component
 
         $user = User::where('email', $this->userEmail)->first();
 
+        if ($this->shoppingList->members->contains($user)) {
+            return;
+        }
+
         $this->shoppingList->members()->attach($user->id, ['role' => $this->role]);
 
         $this->shoppingList->update([
             'is_shared' => true,
         ]);
 
-        return $this->redirectRoute('shopping-lists.index');
+        $this->shoppingList->load('members');
+
+        $this->reset(['userEmail']);
+
+        // return $this->redirectRoute('shopping-lists.index');
     }
 
     public function render()

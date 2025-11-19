@@ -25,7 +25,7 @@ COPY --from=node_builder /app /app
 RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
 # --- STAGE 3: Final Image ---
-FROM php:8.4-fpm-trixie
+FROM php:8.4-fpm-alpine
 
 # Paquets + extensions PHP necessàries per Laravel + SQLite
 RUN set -eux; \

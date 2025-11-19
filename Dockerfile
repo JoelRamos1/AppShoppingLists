@@ -11,7 +11,7 @@ RUN npm ci
 COPY . .
 
 # Construïm els assets
-RUN npm ci
+RUN npm run build
 
 # --- STAGE 2: PHP Dependencies (Composer) ---
 FROM composer:2 AS composer_builder

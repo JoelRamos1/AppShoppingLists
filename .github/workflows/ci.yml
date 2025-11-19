@@ -75,7 +75,7 @@ jobs:
           APP_ENV: testing
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: vendor/bin/phpunit --colors=always
+        run: ./vendor/bin/pest
 
       # ---------- 3️⃣ Login al registro Docker ----------
       - name: Log in to Docker Hub

@@ -1,69 +1,68 @@
-# --- STAGE 1: Build de Node (Assets) ---
-FROM node:22-alpine AS node_builder
-WORKDIR /app
+# ---------------------------------------
+# Etapa 1 – Builder (instala dependencias y compila assets)
+# ---------------------------------------
+FROM php:8.4-fpm-alpine AS builder
 
-# Copiem package.json i package-lock.json (o yarn.lock)
-COPY package*.json package-lock.json ./
-# Instal·lem les dependències de Node
-RUN npm ci
+# Instalar extensiones y herramientas necesarias
+RUN apk add --no-cache \
+        git \
+        curl \
+        zip \
+        unzip \
+        libpng-dev \
+      libjpeg-turbo-dev \
+        freetype-dev \
+       icu-dev \
+     oniguruma-dev \
+       autoconf \
+        g++ \
+     make \
+        npm
 
-# Copiem la resta del codi
-COPY . .
+# Extensiones PHP requeridas por Laravel
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo_mysql gd intl bcmath opcache
 
-# Construïm els assets
-RUN npm run build
+# Composer (versión oficial)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# --- STAGE 2: PHP Dependencies (Composer) ---
-FROM composer:2 AS composer_builder
-WORKDIR /app
-# Copiem el codi de l'aplicació i els assets construïts
-COPY --from=node_builder /app /app
-
-# Instal·lem les dependències de PHP (sense --dev per producció)
-# Utilitzem ' --ignore-platform-reqs' si no tenim instal·lades totes les extensions encara
-# Però idealment, s'han d'especificar totes les extensions a la imatge base
-RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-
-# --- STAGE 3: Final Image ---
-FROM php:8.4-fpm-alpine
-
-# Paquets + extensions PHP necessàries per Laravel + SQLite
-RUN set -eux; \
-    # 1. ACTUALITZAR L'ÍNDEX DE REPOSITORIS (clau per trobar els paquets)
-    apk update; \
-    # 2. Instal·lar dependències de construcció i extensions de PHP
-    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev sqlite-dev oniguruma-dev libzip-dev; \
-    apk add --no-cache icu sqlite-libs git unzip; \
-    docker-php-ext-configure intl; \
-    docker-php-ext-install -j"$(nproc)" pdo_sqlite bcmath intl mbstring; \
-    docker-php-ext-enable opcache; \
-    # 3. Eliminar les dependències de construcció per reduir la imatge
-    apk del .build-deps
-
-# Definim el directori de treball
 WORKDIR /var/www/html
 
-# Copiem el codi de l'aplicació (amb assets i dependències) des del stage de Composer
-# Excloem fitxers que no són necessaris (e.g., .git, dockerfiles, etc.) si no useu .dockerignore
-COPY --from=composer_builder /app /var/www/html
+# Copiar solo los archivos de dependencias primero (optimiza caché)
+COPY composer.json composer.lock ./
+RUN composer install --prefer-dist --no-dev --optimize-autoloader --no-interaction
 
-# Ajustem permisos i generem la clau de l'aplicació
-# Mantenim l'usuari ROOT temporalment per als permisos i la generació
-RUN if [ ! -f .env ]; then cp .env.example .env; fi \
-    && php artisan key:generate \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
-    && php artisan migrate --force;
+# Copiar todo el código fuente
+COPY . .
 
-# Ajustem permisos per a Laravel (storage, bootstrap/cache)
-# Això suposa que l'usuari 'laravel' té UID 1000
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+# Instalar dependencias front‑end y compilar assets
+RUN npm ci && npm run build
 
-# Usuari no root per seguretat (www-data és l'usuari per defecte de php-fpm)
-USER www-data
+# ------------------------------------------------------------
+# Etapa 2 – Runtime (imagen final)
+# ---------------------------------------
+FROM php:8.4-fpm-alpine
 
-# Exposar el port de PHP-FPM
+ENV APP_ENV=production \
+    APP_DEBUG=false \
+    LOG_CHANNEL=stderr
+
+# Instalar solo las extensiones necesarias en runtime
+RUN apk add --no-cache \
+        libpng \
+        libjpeg-turbo \
+        freetype \
+       icu-libs \
+        oniguruma && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+   docker-php-ext-install pdo_mysql gd intl bcmath opcache
+
+# Copiar artefactos desde la etapa builder
+COPY --from=builder /var/www/html /var/www/html
+
+# Ajustar permisos
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
 EXPOSE 9000
+
+CMD ["php-fpm"]

@@ -71,6 +71,8 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v5
+        env:
+            CI: false
         with:
           context: .
           file: ./Dockerfile

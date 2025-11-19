@@ -1,5 +1,5 @@
 # --- STAGE 1: Build de Node (Assets) ---
-FROM node:20-alpine AS node_builder
+FROM node:22-trixie AS node_builder
 WORKDIR /app
 
 # Copiem package.json i package-lock.json (o yarn.lock)
@@ -25,7 +25,7 @@ COPY --from=node_builder /app /app
 RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
 
 # --- STAGE 3: Final Image ---
-FROM php:8.2-fpm-alpine
+FROM php:8.4-fpm-trixie
 
 # Paquets + extensions PHP necessàries per Laravel + SQLite
 RUN set -eux; \

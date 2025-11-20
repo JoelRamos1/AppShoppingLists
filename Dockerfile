@@ -36,7 +36,7 @@ RUN composer install --prefer-dist --no-dev --optimize-autoloader --no-interacti
 COPY . .
 
 # Instalar dependencias front‑end y compilar assets
-RUN npm ci && npm run build
+RUN npm ci && npm run build --if-present
 
 # ------------------------------------------------------------
 # Etapa 2 – Runtime (imagen final)

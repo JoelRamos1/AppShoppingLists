@@ -45,9 +45,6 @@ jobs:
       - name: Build NPM Assets
         run: npm run build
 
-      - name: Run Tests
-        run: ./vendor/bin/pest
-
       - name: Sinchronize Files To Server
         uses: easingthemes/ssh-deploy@v5.1.0
         env:

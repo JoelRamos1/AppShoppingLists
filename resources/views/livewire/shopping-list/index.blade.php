@@ -22,7 +22,7 @@
                     </div>
                 @endforeach
                 <div>
-                    {{ $shopping_lists->links() }}
+                    {{ $shoppingLists->links() }}
                 </div>
             @else
                 <flux:text>{{ __('You have not created any lists') }}</flux:text>

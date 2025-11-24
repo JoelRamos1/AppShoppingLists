@@ -35,10 +35,10 @@ class ShoppingList extends Model
         return $this->hasMany(Category::class);
     }
 
-    // public function isOwnedBy(User $user): bool
-    // {
-    //     return $this->owner_id === $user->id;
-    // }
+    public function isOwnedBy(User $user): bool
+    {
+        return $this->owner_id === $user->id;
+    }
 
     // public function canBeEditedBy(User $user)
     // {

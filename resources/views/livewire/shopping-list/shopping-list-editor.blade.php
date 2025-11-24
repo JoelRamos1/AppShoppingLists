@@ -30,10 +30,11 @@
                     </thead>
                     <tbody>
                         @foreach ($shoppingList->members as $member)
-                            <tr>
+                            <tr wire:key="{{$member->id}}">
                                 <td class="border border-gray-300 py-2 px-4">{{ $member->name }}</td>
                                 <td class="border border-gray-300 py-2 px-4">{{ $member->email }}</td>
                                 <td class="capitalize border border-gray-300 py-2 px-4">{{ $member->pivot->role }}</td>
+                                <td class="border border-gray-300 py-2 px-4"><flux:button variant="danger" icon="trash" wire:click="removeMember({{$member->id}})"></flux:button></td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -57,6 +57,20 @@ class ShoppingListEditor extends Component
         // return $this->redirectRoute('shopping-lists.index');
     }
 
+    public function removeMember(int $userId) {
+        $user = User::findOrFail($userId);
+
+        if ($this->shoppingList->isOwnedBy($user)) {
+            return;
+        }
+
+        $this->shoppingList->members()->detach($user->id);
+
+        $this->shoppingList->load('members');
+
+        // return back();
+    }
+
     public function render()
     {
         return view('livewire.shopping-list.shopping-list-editor');

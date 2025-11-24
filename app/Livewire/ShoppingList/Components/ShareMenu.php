@@ -12,25 +12,36 @@ class ShareMenu extends Component
 {
     public ShoppingList $shoppingList;
 
-    #[Validate('required|email|exists:users,email')]
-    public string $inviteEmail;
-    #[Validate('required|in:editor')]
-    public $inviteRole;
+    public $userEmail = '';
+
+    public $role = 'editor';
+
+    public function mount(ShoppingList $shoppingList) {
+        $this->shoppingList = $shoppingList;
+    }
 
     public function invite()
     {
-        $this->validate();
+        $this->validate([
+            'userEmail' => 'required',
+            'role' => 'required',
+        ]);
 
-        $user = User::where('email', $this->inviteEmail)->firstOrFail();
+        $user = User::where('email', $this->userEmail)->first();
 
-        // if ($this->shoppingList->members->contains($user)) {
-        //     // $this->error = __('User already has access');
-        //     return;
-        // };
+        if ($this->shoppingList->members->contains($user)) {
+            return;
+        }
 
-        $this->shoppingList->members()->attach($user->id, ['role' => $this->inviteRole]);
+        $this->shoppingList->members()->attach($user->id, ['role' => $this->role]);
 
-        $this->reset(['inviteEmail']);
+        $this->shoppingList->update([
+            'is_shared' => true,
+        ]);
+
+        $this->shoppingList->load('members');
+
+        $this->reset(['userEmail']);
     }
 
     public function render()

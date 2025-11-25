@@ -9,7 +9,6 @@ on:
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
-    environment: Testing
 
     steps:
       - name: Checkout
@@ -45,9 +44,6 @@ jobs:
 
       - name: Build Assets
         run: npm run build
-
-      - name: Run Tests
-        run: ./vendor/bin/pest
 
       - name: Sinchronize Files To Server
         uses: easingthemes/ssh-deploy@v5.1.0

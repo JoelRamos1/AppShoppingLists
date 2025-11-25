@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
 
 jobs:
   test-and-deploy:
@@ -28,7 +29,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node Dependencies
-        run: npm i
+        run: npm install
 
       - name: Add Flux Credentials Loaded From ENV
         run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
@@ -48,22 +49,22 @@ jobs:
       - name: Run Tests
         run: ./vendor/bin/pest
 
-      # - name: Sinchronize Files To Server
-      #   uses: easingthemes/ssh-deploy@v5.1.0
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     SOURCE: "."
-      #     REMOTE_HOST: ${{ secrets.SSH_HOST }}
-      #     REMOTE_USER: ${{ secrets.SSH_USER }}
-      #     TARGET: "/home/joel/appShoppingLists"
+      - name: Sinchronize Files To Server
+        uses: easingthemes/ssh-deploy@v5.1.0
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SOURCE: "."
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: "/root/appShoppingLists"
 
-      # - name: Run Remote/Artisan Commands
-      #   uses: appleboy/ssh-action@v1
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       cd /home/joel/appShoppingLists
-      #       php artisan migrate --force
-      #       php artisan optimize
+      - name: Run Remote/Artisan Commands
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /root/appShoppingLists
+            php artisan migrate --force
+            php artisan optimize

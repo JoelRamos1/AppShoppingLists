@@ -10,8 +10,11 @@ RUN npm ci
 # Copiem la resta del codi
 COPY . .
 
+# Construïm els assets
+RUN npm run build
+
 # --- STAGE 2: PHP Dependencies (Composer) ---
-FROM composer:2 AS composer_builder
+FROM composer:2.8.4 AS composer_builder
 WORKDIR /app
 # Copiem el codi de l'aplicació i els assets construïts
 COPY --from=node_builder /app /app
@@ -61,9 +64,6 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Usuari no root per seguretat (www-data és l'usuari per defecte de php-fpm)
 USER www-data
-
-# Construïm els assets
-RUN npm run build
 
 # Exposar el port de PHP-FPM
 EXPOSE 9000

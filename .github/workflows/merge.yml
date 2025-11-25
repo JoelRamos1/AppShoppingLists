@@ -60,8 +60,9 @@ jobs:
 
       - name: Set Git config
         run: |
-            git fetch --unshallow
-            git checkout dev
-            git pull
-            git merge --no-ff master -m "Auto-merge master back to dev"
-            git push
+            git config --local user.email "joel.ramos@insbaixcamp.cat"
+            git config --local user.name "JoelRamos1"
+
+
+
+

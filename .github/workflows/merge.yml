@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - main
 
 jobs:
   ci:
@@ -50,19 +47,16 @@ jobs:
 
       - name: Run Tests
         run: ./vendor/bin/pest
+
   merge:
     runs-on: ubuntu-latest
     needs: ci
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set Git config
-        run: |
-            git config --local user.email "joel.ramos@insbaixcamp.cat"
-            git config --local user.name "JoelRamos1"
-
-
-
-
+      - name: Merge Development into Staging
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: development
+          target_branch: staging
+          github_token: ${{ secrets.GITHUB_TOKEN }}

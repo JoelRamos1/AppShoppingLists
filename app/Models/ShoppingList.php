@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShoppingList extends Model
 {
@@ -18,7 +19,7 @@ class ShoppingList extends Model
     // Returns the owner of the list
     public function owner()
     {
-        return $this->belongTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     // Returns the members (owner, editors) of the shopping list

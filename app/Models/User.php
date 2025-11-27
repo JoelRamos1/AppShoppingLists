@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -64,13 +66,13 @@ class User extends Authenticatable
     }
 
     // Returns owned shopping lists
-    public function ownedLists()
+    public function ownedLists(): HasMany
     {
         return $this->hasMany(ShoppingList::class, 'owner_id');
     }
 
     // returns shared shopping lists
-    public function sharedLists()
+    public function sharedLists(): BelongsToMany
     {
         return $this->belongsToMany(ShoppingList::class, 'shopping_list_user', 'shopping_list_id', 'user_id')
                     ->withPivot('role')

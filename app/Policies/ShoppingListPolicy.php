@@ -30,7 +30,8 @@ class ShoppingListPolicy
      */
     public function create(User $user, ShoppingList $shoppingList): bool
     {
-        return $user->id === $shoppingList->owner_id;
+        return $user->id === $shoppingList->owner_id ||
+                $shoppingList->members->contains($user);
     }
 
     /**
@@ -38,7 +39,8 @@ class ShoppingListPolicy
      */
     public function update(User $user, ShoppingList $shoppingList): bool
     {
-        return $user->id === $shoppingList->owner_id;
+        return $user->id === $shoppingList->owner_id ||
+                $shoppingList->members->contains($user);
     }
 
     /**

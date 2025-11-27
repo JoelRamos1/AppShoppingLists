@@ -10,11 +10,19 @@ use Livewire\WithPagination;
 
 class Shared extends Component
 {
-    use WithPagination;
+    public $shoppingLists;
+
+    public function mount()
+    {
+        $user = Auth::user();
+
+        $this->shoppingLists = ShoppingList::where('is_shared', true)->get();
+
+        // $this->shoppingLists = $user->sharedLists()->get();
+    }
 
     public function render()
     {
-        $shoppingLists = Auth::user()->sharedLists->where('owner_id', '<>', Auth::id());
-        return view('livewire.shopping-list.shared', compact('shoppingLists'));
+        return view('livewire.shopping-list.shared');
     }
 }

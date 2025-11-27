@@ -25,9 +25,7 @@ class Index extends Component
 
     public function render()
     {
-        $user = User::find(Auth::id());
-
-        return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::ownedBy($user)
+        return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::where('owner_id', Auth::id())
                                                                                      ->latest()
                                                                                      ->paginate(10)]);
     }

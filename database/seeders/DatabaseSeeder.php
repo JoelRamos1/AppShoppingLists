@@ -8,6 +8,7 @@ use App\Models\ShoppingList;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,13 +19,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
+        $user = User::create([
             'name' => 'user',
             'email' => 'user@example.com',
             'password' => 'usertesting',
         ]);
 
-        ShoppingList::Factory(10)->create();
+        ShoppingList::Factory(10)->withOwner($user)->create();
 
         Category::Factory(20)->create();
 

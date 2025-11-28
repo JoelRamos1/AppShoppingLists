@@ -6,6 +6,7 @@
             </div>
         @endif
         <flux:heading size="xl">{{ __('My Shopping Lists') }}</flux:heading>
+        <flux:text>{{__('See your created shopping lists')}}</flux:text>
         <div class="flex flex-col gap-4 mt-4">
             @if (count($shoppingLists))
                 @foreach ($shoppingLists as $shoppingList)

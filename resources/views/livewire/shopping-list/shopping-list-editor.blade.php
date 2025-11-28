@@ -1,12 +1,12 @@
 <div>
     {{-- The Master doesn't talk, he acts. --}}
     <div>
-        <flux:heading size="xl">{{ __('Editing Shopping List ') . $shoppingList->title }}</flux:heading>
+        <flux:heading size="xl" level="1" class="font-bold dark:font-bold">{{ __('Editing Shopping List ') . $shoppingList->title }}</flux:heading>
     </div>
 
     <div>
         <div>
-            <flux:heading size="lg">{{ __('Basic Information') }}</flux:heading>
+            <flux:heading size="lg" level="2">{{ __('Basic Information') }}</flux:heading>
             <form wire:submit="updateTitle" class="mt-2 flex flex-col gap-4">
                 <flux:input type="text" label="{{ __('Update Title') }}" placeholder="{{ $shoppingList->title }}"
                     wire:model="newTitle" clearable>
@@ -17,24 +17,24 @@
         </div>
         <flux:separator class="my-4"></flux:separator>
         <div>
-            <flux:heading size="lg">{{ __('Share this Shopping List') }}</flux:heading>
+            <flux:heading size="lg" level="2">{{ __('Share this Shopping List') }}</flux:heading>
             <flux:subheading>{{ __('Share this shopping list with another user') }}</flux:subheading>
             @if ($shoppingList->is_shared)
-                <table class="border-collapse border border-gray-300 mt-4">
+                <table class="border-collapse border border-zinc-200 dark:border-zinc-700 mt-4">
                     <thead>
                         <tr>
-                            <th class="border border-gray-300 py-2 px-4">{{ __('Name') }}</th>
-                            <th class="border border-gray-300 py-2 px-4">{{ __('Email') }}</th>
-                            <th class="border border-gray-300 py-2 px-4">{{ __('Role') }}</th>
+                            <th class="border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ __('Name') }}</th>
+                            <th class="border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ __('Email') }}</th>
+                            <th class="border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ __('Role') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($shoppingList->members as $member)
                             <tr wire:key="{{$member->id}}">
-                                <td class="border border-gray-300 py-2 px-4">{{ $member->name }}</td>
-                                <td class="border border-gray-300 py-2 px-4">{{ $member->email }}</td>
-                                <td class="capitalize border border-gray-300 py-2 px-4">{{ $member->pivot->role }}</td>
-                                <td class="border border-gray-300 py-2 px-4"><flux:button variant="danger" icon="trash" wire:click="removeMember({{$member->id}})"></flux:button></td>
+                                <td class="border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ $member->name }}</td>
+                                <td class="border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ $member->email }}</td>
+                                <td class="capitalize border border-zinc-200 dark:border-zinc-700 py-2 px-4">{{ $member->pivot->role }}</td>
+                                <td class="border border-zinc-200 dark:border-zinc-700 py-2 px-4"><flux:button variant="danger" icon="trash" wire:click="removeMember({{$member->id}})"></flux:button></td>
                             </tr>
                         @endforeach
                     </tbody>

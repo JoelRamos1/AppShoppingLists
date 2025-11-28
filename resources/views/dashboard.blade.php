@@ -6,6 +6,7 @@
                 <livewire:shopping-list.components.shopping-lists-info />
             </div> --}}
             <livewire:shopping-list.components.shopping-lists-info />
+            <livewire:shopping-list.components.shopping-lists-info />
 
 
             {{-- <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">

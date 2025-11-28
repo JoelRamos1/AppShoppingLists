@@ -9,7 +9,7 @@
                         <div>
                             <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
                                 class="font-semibold">{{ $shoppingList->title }}</a>
-                            <flux:text>{{ __('Created') }}{{ $shoppingList->created_at }}</flux:text>
+                            <flux:text>{{ __('Created ') }}{{$shoppingList->created_at }}</flux:text>
                         </div>
                         <div class="flex justify-self-end gap-2">
                             <flux:button variant="ghost" icon="pencil"

@@ -11,3 +11,9 @@ test('authenticated users can visit the dashboard', function () {
 
     $this->get('/dashboard')->assertStatus(200);
 });
+
+// test('module is displayed', function () {
+//     $this->actingAs($user = User::factory()->create());
+
+//     $this->get('/dashboard')->assertSee('Recent Shopping Lists');
+// });

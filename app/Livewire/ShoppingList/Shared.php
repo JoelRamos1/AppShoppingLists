@@ -18,7 +18,9 @@ class Shared extends Component
 
         // $this->shoppingLists = ShoppingList::where('is_shared', true)->get();
 
-        $this->shoppingLists = $user->sharedLists()->latest()->get();
+        $this->shoppingLists = ShoppingList::where('is_shared', true)
+            ->where('owner_id', '!=', $user->id)
+            ->get();
     }
 
     public function render()

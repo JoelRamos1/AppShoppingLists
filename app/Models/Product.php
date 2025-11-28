@@ -15,6 +15,13 @@ class Product extends Model
         'is_completed',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_completed' => 'boolean',
+        ];
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

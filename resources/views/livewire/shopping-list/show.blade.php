@@ -17,7 +17,7 @@
             <flux:menu>
                 <flux:menu.item icon="pencil" href="{{route('shopping-list.edit', $shopping_list->id)}}">Edit Post
                 </flux:menu.item>
-                <flux:menu.item icon="trash" variant="danger">Delete Post</flux:menu.item>
+                <flux:menu.item icon="trash" variant="danger" wire:click="deleteShoppingList" wire:confirm="{{__('Are you sure you want to delete this list')}}">Delete Post</flux:menu.item>
             </flux:menu>
         </flux:dropdown>
     </div>

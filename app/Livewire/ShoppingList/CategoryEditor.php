@@ -4,6 +4,7 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tag;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -11,8 +12,10 @@ class CategoryEditor extends Component
 {
     public Category $category;
 
-    #[Validate('required|string|max:255')]
+    // #[Validate('required|string|max:255')]
     public $name = '';
+
+    public $tagName = '';
 
     public array $newProductNames = [];
 
@@ -23,7 +26,7 @@ class CategoryEditor extends Component
 
     public function newProduct()
     {
-        $this->validate();
+        // $this->validate();
 
         $this->authorize('create', $this->category->shoppingList);
 
@@ -71,6 +74,17 @@ class CategoryEditor extends Component
         $this->authorize('delete', $this->category->shoppingList);
 
         $product->delete();
+
+        $this->category->load('products');
+    }
+
+    public function createTag(int $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->tag()->create([
+            'name' => $this->tagName,
+        ]);
 
         $this->category->load('products');
     }

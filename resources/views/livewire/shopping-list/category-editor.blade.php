@@ -17,8 +17,21 @@
                         wire:click="checkProduct({{ $product->id }})"
                     />
                     <input class="placeholder-black dark:placeholder-white {{$product->is_completed ? 'placeholder:line-through' : ''}}" type="text" placeholder="{{ $product->name }}" wire:model.defer="newProductNames.{{$product->id}}" wire:keydown.enter="updateProduct({{ $product->id }})" />
+                    @if (count($product->tag))
+                        @foreach ($product->tag as $tag)
+                            {{"#".$tag->name}}
+                        @endforeach
+                    @else
+                        <p>No tag</p>
+                    @endif
                 </div>
                 <div>
+                    <form wire:submit="createTag">
+                        <input type="text" placeholder="{{ __('New tag name') }}" wire:model="tagName">
+                        <button type="submit">
+                            <flux:icon.plus></flux:icon.plus>
+                        </button>
+                    </form>
                     <button wire:click.prevent="deleteProduct({{ $product->id }})" type="button">
                         <flux:icon.trash />
                     </button>

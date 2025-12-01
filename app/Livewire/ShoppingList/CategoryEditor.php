@@ -12,7 +12,7 @@ class CategoryEditor extends Component
 {
     public Category $category;
 
-    #[Validate('required|string|max:255')]
+    // #[Validate('required|string|max:255')]
     public $name = '';
 
     public $tagName = '';
@@ -26,7 +26,7 @@ class CategoryEditor extends Component
 
     public function newProduct()
     {
-        $this->validate();
+        // $this->validate();
 
         $this->authorize('create', $this->category->shoppingList);
 

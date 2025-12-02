@@ -9,28 +9,30 @@
 
     <div class="mx-2">
         @forelse ($category->products as $product)
-            <div class="flex flex-row gap-2">
-                <div>
-                    <input
+            <div class="grid grid-cols-4 gap-1" wire:key="{{ $product->id }}">
+                <div class="flex flex-row gap-1">
+                    {{-- <input
                         type="checkbox"
                         @checked($product->is_completed)
                         wire:click="checkProduct({{ $product->id }})"
-                    />
+                    /> --}}
+                    <flux:checkbox :checked="$product->is_completed"  wire:click="checkProduct({{ $product->id }})"/>
                     <input class="placeholder-black dark:placeholder-white {{$product->is_completed ? 'placeholder:line-through' : ''}}" type="text" placeholder="{{ $product->name }}" wire:model.defer="newProductNames.{{$product->id}}" wire:keydown.enter="updateProduct({{ $product->id }})" />
                     @if (count($product->tag))
+                        <ul>
                         @foreach ($product->tag as $tag)
-                            {{"#".$tag->name}}
+                            <li class="bg-yellow-200 rounded-2xl p-1">{{"#".$tag->name}}</li>
                         @endforeach
-                    @else
-                        <p>No tag</p>
+                        </ul>
                     @endif
                 </div>
-                <div>
-                    <form wire:submit="createTag">
-                        <input type="text" placeholder="{{ __('New tag name') }}" wire:model="tagName">
-                        <button type="submit">
+                <div class="grid grid-cols-2">
+                    <form wire:submit="createTag({{ $product->id }})" class="grid grid-cols-2">
+                        <flux:input type="text" placeholder="{{ __('New tag name') }}" wire:model="tagName" wire:key="{{ $product->id }}" />
+                        {{-- <button type="submit">
                             <flux:icon.plus></flux:icon.plus>
-                        </button>
+                        </button> --}}
+                        <flux:button icon="plus" type="submit" />
                     </form>
                     <button wire:click.prevent="deleteProduct({{ $product->id }})" type="button">
                         <flux:icon.trash />

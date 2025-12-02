@@ -10,21 +10,35 @@ use Livewire\WithPagination;
 
 class Shared extends Component
 {
-    public $shoppingLists;
+    use WithPagination;
 
-    public function mount()
+    public string $search = '';
+
+    // public function mount()
+    // {
+    //     $user = Auth::user();
+
+    //     // $this->shoppingLists = ShoppingList::where('is_shared', true)->get();
+
+        // $this->shoppingLists = ShoppingList::where('is_shared', true)
+        //     ->where('owner_id', '!=', $user->id)
+        //     ->where('title', 'like', '%' . $this->search . '%')
+        //     ->latest()
+        //     ->get();
+    // }
+
+    public function updatingSearch()
     {
-        $user = Auth::user();
-
-        // $this->shoppingLists = ShoppingList::where('is_shared', true)->get();
-
-        $this->shoppingLists = ShoppingList::where('is_shared', true)
-            ->where('owner_id', '!=', $user->id)
-            ->get();
+        $this->resetPage();
     }
 
     public function render()
     {
-        return view('livewire.shopping-list.shared');
+        return view('livewire.shopping-list.shared', ['shoppingLists' => ShoppingList::where('is_shared', true)
+            ->whereHas('members', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->where('title', 'like', '%' . $this->search . '%')
+            ->paginate(10)]);
     }
 }

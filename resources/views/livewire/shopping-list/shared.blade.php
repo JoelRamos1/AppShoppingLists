@@ -1,6 +1,13 @@
 <div>
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
-    <flux:heading size="xl">{{ __('Shared Shopping Lists') }}</flux:heading>
+    <div>
+        <flux:heading size="xl" class="font-bold dark:font-bold">{{ __('Shared Shopping Lists') }}</flux:heading>
+        <flux:subheading size="lg" class="mb-4">{{ __('See the shopping lists other users have shared with you') }}</flux:subheading>
+    </div>
+    <flux:separator variant="subtle" />
+    <div class="mt-4 flex flex-row gap-2">
+        <flux:input type="text" wire:model.live.debounce.500ms="search" wire:keydown.enter="updatingSearch()" placeholder="{{ __('Search through your shopping lists') }}" />
+    </div>
     <div class="flex flex-col gap-4 mt-4">
             @if (count($shoppingLists))
                 @foreach ($shoppingLists as $shoppingList)
@@ -18,7 +25,7 @@
                     </div>
                 @endforeach
             @else
-                <flux:text>{{ __('You have not created any lists') }}</flux:text>
+                <flux:text>{{ __('You have no shared shopping lists') }}</flux:text>
             @endif
         </div>
 </div>

@@ -10,17 +10,18 @@
     @endif
 
     {{-- Title --}}
-    <div class="flex flex-row gap-2">
-        <flux:heading size="xl" class="mr-2">{{ $shopping_list->title }}</flux:heading>
+    <div class="flex flex-row items-center gap-2 mb-4">
+        <flux:heading size="xl" class="font-bold dark:font-bold">{{ $shopping_list->title }}</flux:heading>
         <flux:dropdown>
-            <flux:button icon="cog-8-tooth" icon:variant="outline"></flux:button>
+            <flux:button icon="cog-8-tooth" variant="ghost" icon:variant="outline"></flux:button>
             <flux:menu>
-                <flux:menu.item icon="pencil" href="{{route('shopping-list.edit', $shopping_list->id)}}">Edit Post
-                </flux:menu.item>
+                <flux:menu.item icon="pencil" href="{{route('shopping-list.edit', $shopping_list->id)}}">Edit Post</flux:menu.item>
                 <flux:menu.item icon="trash" variant="danger" wire:click="deleteShoppingList" wire:confirm="{{__('Are you sure you want to delete this list')}}">Delete Post</flux:menu.item>
             </flux:menu>
         </flux:dropdown>
     </div>
+
+    <flux:separator variant="subtle" />
 
     {{-- Create category form --}}
     <form wire:submit="save" class="flex flex-row gap-2 my-4">
@@ -30,20 +31,22 @@
         </flux:button>
     </form>
 
-    <flux:separator />
-
     {{-- Categories --}}
-    <div class="mt-4">
+    <div class="flex flex-col gap-4 mt-4">
         @forelse ($shopping_list->categories as $category)
-            <div>
-                <div class="grid grid-cols-2 items-center justify-start mb-2">
-                    <flux:heading size="lg">{{ $category->name }}</flux:heading>
-                    <flux:button class="justify-self-end" variant="danger" icon="trash"
-                        wire:click="delete({{ $category->id }})" type="button" />
+            <div class="border rounded-xs p-4">
+                <div class="flex flex-row gap-2 items-center mb-2">
+                    <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>
+                    <flux:dropdown>
+                        <flux:button icon="bars-3" variant="ghost" />
+                        <flux:menu>
+                            <flux:menu.item icon="pencil">{{ __('Change Name of Category') }}</flux:menu.item>
+                            <flux:menu.item icon="trash" variant="danger" wire:click="delete({{ $category->id }})" wire:confirm="{{ __('Do you really want to delete this category') }}">{{ __('Delete Category') }}</flux:menu.item>
+                        </flux:menu>
+                    </flux:dropdown>
                 </div>
 
                 <livewire:shopping-list.category-editor :category="$category" :key="'category-' . $category->id" lazy />
-                <flux:separator class="my-2"></flux:separator>
             </div>
         @empty
             <flux:text>{{ __('There are no categories in this shopping list. Create one above.') }}</flux:text>

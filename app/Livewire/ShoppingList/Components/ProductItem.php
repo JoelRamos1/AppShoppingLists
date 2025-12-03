@@ -3,6 +3,7 @@
 namespace App\Livewire\ShoppingList\Components;
 
 use App\Models\Product;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProductItem extends Component
@@ -11,11 +12,17 @@ class ProductItem extends Component
 
     public $newName;
 
-    public string $tagName = '';
+    public $tagName = '';
 
     public function mount(Product $product)
     {
         $this->product = $product->load('tag');
+    }
+
+    #[On('tag-delete')]
+    public function refreshProduct(int $id)
+    {
+        $this->product->refresh();
     }
 
     public function checkProduct()
@@ -38,8 +45,6 @@ class ProductItem extends Component
         ]);
     }
 
-
-
     public function deleteProduct()
     {
         $this->authorize('update', $this->product->category->shoppingList);
@@ -51,13 +56,13 @@ class ProductItem extends Component
 
     public function createTag()
     {
-        $this->product->tag->create([
+        $this->product->tag()->create([
             'name' => $this->tagName,
         ]);
 
         $this->reset('tagName');
 
-        $this->product->refresh();
+        $this->product->load('tag');
 
         $this->dispatch('tag-created');
     }

@@ -12,7 +12,6 @@
         <form wire:submit="updateTitle" class="mt-2 flex flex-col gap-4">
             <flux:input type="text" label="{{ __('Update Title') }}" placeholder="{{ $shoppingList->title }}"
                 wire:model="newTitle" clearable>
-                <x-slot>{{ $shoppingList->title }}</x-slot>
             </flux:input>
             <flux:button variant="primary" icon="arrow-path" type="submit">{{ __('Update Title') }}</flux:button>
         </form>

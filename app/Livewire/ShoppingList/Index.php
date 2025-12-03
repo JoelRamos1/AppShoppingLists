@@ -14,6 +14,10 @@ class Index extends Component
 
     public string $search = '';
 
+    public string $sortBy = 'created_at';
+
+    public string $sortDirection = 'desc';
+
     // protected $updatesQueryString = ['search'];
 
     public function updatingSearch()
@@ -36,7 +40,7 @@ class Index extends Component
     {
         return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::where('owner_id', Auth::id())
                                                                                      ->where('title', 'like', '%' . $this->search . '%')
-                                                                                     ->latest()
+                                                                                     ->orderBy($this->sortBy, $this->sortDirection)
                                                                                      ->paginate(10)]);
     }
 }

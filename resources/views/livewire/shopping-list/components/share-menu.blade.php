@@ -1,9 +1,15 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
-    <flux:modal.trigger name="share-shopping-list">
+    <flux:modal.trigger name="share-shopping-list.{{ $shoppingList->id }}">
         <flux:button variant="ghost" icon="share"></flux:button>
     </flux:modal.trigger>
-    <flux:modal name="share-shopping-list">
+    <flux:modal name="share-shopping-list.{{ $shoppingList->id }}">
+        @if(session()->has('success'))
+        <div class="bg-green-500 text-white font-semibold flex flex-row gap-2 px-2 py-4" x-data="{ show: true }"
+            x-show="show" x-init="setTimeout(() => show = false, 3000)">
+            <flux:icon.check-circle variant="outline" /> {{ session('success') }}
+        </div>
+        @endif
         <div>
             <flux:heading>{{ __('Share')." ".$shoppingList->title}}</flux:heading>
             <flux:text>{{ __('Share this shopping list with another user')}}</flux:text>

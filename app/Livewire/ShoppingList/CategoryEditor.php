@@ -42,6 +42,15 @@ class CategoryEditor extends Component
         $this->dispatch('product-added');
     }
 
+    public function delete() {
+        $this->authorize('delete', $this->category->shoppingList);
+
+        $this->category->delete();
+
+        $this->dispatch('category-delete', id: $this->category->id);
+        // $this->redirectRoute('shopping-lists.show', $this->id);
+    }
+
     public function render()
     {
         return view('livewire.shopping-list.category-editor');

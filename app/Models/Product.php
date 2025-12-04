@@ -17,6 +17,8 @@ class Product extends Model
         'is_completed',
     ];
 
+    protected $touches = ['category'];
+
     protected function casts(): array
     {
         return [

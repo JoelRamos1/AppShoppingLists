@@ -1,4 +1,4 @@
-<div class="flex items-center gap-2">
+<div class="w-full flex items-center gap-2">
     {{-- Care about people's approval and you will be their prisoner. --}}
     <flux:field variant="inline">
         <flux:checkbox :checked="$product->is_completed" wire:click="checkProduct()" />
@@ -11,11 +11,9 @@
             @endforeach
         </ul>
     @endif
-    <div>
-        <form wire:submit="createTag" class="flex flex-row gap-2">
-            <input class="border-b-2 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
-            <button type="submit" ><flux:icon.plus /></button>
-        </form>
-    </div>
-    <flux:button type="button" wire:click="deleteProduct()" icon="trash" variant="danger" />
+    <form wire:submit="createTag" class="flex flex-row gap-2">
+        <input class="border-b-2 border-b-zinc-200 dark:border-b-zinc-600 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
+        <button type="submit" ><flux:icon.plus /></button>
+    </form>
+    <flux:button class="ml-auto" type="button" wire:click="deleteProduct()" icon="trash" variant="danger" />
 </div>

@@ -14,6 +14,8 @@ class Tag extends Model
         'name',
     ];
 
+    protected $touches = ['product'];
+
     protected function casts(): array
     {
         return [

@@ -69,6 +69,6 @@ class ShoppingListPolicy
 
     public function invite(User $user, ShoppingList $shoppingList): bool
     {
-        return $$user->id === $shoppingList->owner_id;
+        return $user->id === $shoppingList->owner_id;
     }
 }

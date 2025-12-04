@@ -38,6 +38,8 @@ class ShoppingListEditor extends Component
             'role' => 'required',
         ]);
 
+        $this->authorize('invite', $this->shoppingList);
+
         $user = User::where('email', $this->userEmail)->first();
 
         if ($this->shoppingList->members->contains($user)) {
@@ -57,7 +59,10 @@ class ShoppingListEditor extends Component
         // return $this->redirectRoute('shopping-lists.index');
     }
 
-    public function removeMember(int $userId) {
+    public function removeMember(int $userId)
+    {
+        $this->authorize('invite', $this->shoppingList);
+
         $user = User::findOrFail($userId);
 
         if ($this->shoppingList->isOwnedBy($user)) {

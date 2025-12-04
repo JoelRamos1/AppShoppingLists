@@ -16,14 +16,14 @@
 
             <flux:menu>
                 <flux:menu.radio.group wire:model.live="sortBy">
-                    <flux:menu.radio value="created_at">Date Created</flux:menu.radio>
-                    <flux:menu.radio value="updated_at">Latest Activity</flux:menu.radio>
-                    <flux:menu.radio value="title">Title</flux:menu.radio>
+                    <flux:menu.radio value="created_at">{{ __('Created') }}</flux:menu.radio>
+                    <flux:menu.radio value="updated_at">{{ __('Updated') }}</flux:menu.radio>
+                    <flux:menu.radio value="title">{{ __('Title') }}</flux:menu.radio>
                 </flux:menu.radio.group>
                 <flux:menu.separator />
                 <flux:menu.radio.group wire:model.live="sortDirection">
-                    <flux:menu.radio value="asc">Ascendent</flux:menu.radio>
-                    <flux:menu.radio value="desc">Descendent</flux:menu.radio>
+                    <flux:menu.radio value="asc">{{ __('Ascendent') }}</flux:menu.radio>
+                    <flux:menu.radio value="desc">{{ __('Descendent') }}</flux:menu.radio>
                 </flux:menu.radio>
             </flux:menu>
         </flux:dropdown>

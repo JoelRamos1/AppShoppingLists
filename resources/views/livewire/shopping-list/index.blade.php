@@ -12,7 +12,7 @@
     <div class="mt-4 flex flex-row gap-2">
         <flux:input type="text" wire:model.live.debounce.500ms="search" wire:keydown.enter="updatingSearch()" placeholder="{{ __('Search through your shopping lists') }}" />
         <flux:dropdown>
-            <flux:button icon:trailing="chevron-down">Sort by</flux:button>
+            <flux:button icon:trailing="adjustments-vertical">{{ __('Sort') }}</flux:button>
 
             <flux:menu>
                 <flux:menu.radio.group wire:model.live="sortBy">

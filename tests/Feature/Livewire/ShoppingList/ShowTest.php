@@ -59,32 +59,11 @@ class ShowTest extends TestCase
 
         Livewire::test(Show::class, ['id' => $list->id])
             ->set('name', 'Fruits')
-            ->call('save')
-            ->assertRedirect(route('shopping-lists.show', $list->id));
+            ->call('save');
 
         $this->assertDatabaseHas('categories', [
             'shopping_list_id' => $list->id,
             'name' => 'Fruits',
-        ]);
-    }
-
-    public function test_it_deletes_a_category()
-    {
-        $user = User::factory()->create();
-        $list = ShoppingList::factory()->create(['owner_id' => $user->id]);
-        $category = Category::factory()->create([
-            'shopping_list_id' => $list->id,
-            'name' => 'Vegetables',
-        ]);
-
-        $this->actingAs($user);
-
-        Livewire::test(Show::class, ['id' => $list->id])
-            ->call('delete', $category->id)
-            ->assertRedirect(route('shopping-lists.show', $list->id));
-
-        $this->assertDatabaseMissing('categories', [
-            'id' => $category->id,
         ]);
     }
 

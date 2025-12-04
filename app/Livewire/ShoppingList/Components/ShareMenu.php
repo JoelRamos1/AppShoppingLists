@@ -27,6 +27,8 @@ class ShareMenu extends Component
             'role' => 'required',
         ]);
 
+        $this->authorize('invite', $this->shoppingList);
+
         $user = User::where('email', $this->userEmail)->first();
 
         if ($this->shoppingList->members->contains($user)) {

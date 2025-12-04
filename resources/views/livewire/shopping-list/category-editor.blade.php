@@ -1,4 +1,4 @@
-<div class="border rounded-xs px-4 py-2">
+<div class="border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 rounded-xs px-4 py-2">
     {{-- Stop trying to control. --}}
     <div class="flex flex-row gap-2 items-center mb-2">
         <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>
@@ -24,7 +24,7 @@
         @forelse ($category->products as $product)
             <livewire:shopping-list.components.product-item :product="$product" :key="$product->id" lazy />
         @empty
-            <flux:text>{{ __('There are no products in this category. Create one above.') }}</flux:text>
+            <flux:text class="py-2">{{ __('There are no products in this category. Create one above.') }}</flux:text>
         @endforelse
     </div>
 </div>

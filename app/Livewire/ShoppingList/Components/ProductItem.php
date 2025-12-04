@@ -56,6 +56,8 @@ class ProductItem extends Component
 
     public function createTag()
     {
+        $this->authorize('create', $this->product->category->shoppingList);
+
         $this->product->tag()->create([
             'name' => $this->tagName,
         ]);

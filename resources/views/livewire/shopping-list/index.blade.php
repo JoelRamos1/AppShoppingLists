@@ -12,13 +12,19 @@
     <div class="mt-4 flex flex-row gap-2">
         <flux:input type="text" wire:model.live.debounce.500ms="search" wire:keydown.enter="updatingSearch()" placeholder="{{ __('Search through your shopping lists') }}" />
         <flux:dropdown>
-            <flux:button icon:trailing="chevron-down">Sort by</flux:button>
+            <flux:button icon:trailing="adjustments-vertical">{{ __('Sort') }}</flux:button>
 
             <flux:menu>
-                <flux:menu.radio.group wire:model="sortBy">
-                    <flux:menu.radio checked>Date Created</flux:menu.radio>
-                    <flux:menu.radio>Latest Activity</flux:menu.radio>
+                <flux:menu.radio.group wire:model.live="sortBy">
+                    <flux:menu.radio value="created_at">Date Created</flux:menu.radio>
+                    <flux:menu.radio value="updated_at">Latest Activity</flux:menu.radio>
+                    <flux:menu.radio value="title">Title</flux:menu.radio>
                 </flux:menu.radio.group>
+                <flux:menu.separator />
+                <flux:menu.radio.group wire:model.live="sortDirection">
+                    <flux:menu.radio value="asc">Ascendent</flux:menu.radio>
+                    <flux:menu.radio value="desc">Descendent</flux:menu.radio>
+                </flux:menu.radio>
             </flux:menu>
         </flux:dropdown>
     </div>

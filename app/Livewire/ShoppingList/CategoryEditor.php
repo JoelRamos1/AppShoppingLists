@@ -5,6 +5,7 @@ namespace App\Livewire\ShoppingList;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -15,78 +16,39 @@ class CategoryEditor extends Component
     #[Validate('required|string|max:255')]
     public $name = '';
 
-    public $tagName = '';
-
-    public array $newProductNames = [];
-
     public function mount(Category $category)
     {
-        $this->category = $category;
+        $this->category = $category->load('products');
+    }
+
+    #[On('product-deleted')]
+    public function refreshProducts(int $id)
+    {
+        $this->category->refresh();
     }
 
     public function newProduct()
     {
         $this->validate();
-
         $this->authorize('create', $this->category->shoppingList);
 
         $this->category->products()->create([
             'name' => $this->name,
         ]);
 
-        $this->category->load('products');
-
+        $this->category->refresh();
         $this->reset('name');
+
+        $this->dispatch('product-added');
     }
 
-    public function checkProduct(int $id)
-    {
-        $product = Product::find($id);
-
-        $this->authorize('update', $this->category->shoppingList);
-
-        $product->update([
-            'is_completed' => ! $product->is_completed,
-        ]);
-
-        $this->category->load('products');
-    }
-
-    public function updateProduct(int $id)
-    {
-        $product = Product::findOrFail($id);
-
-        $this->authorize('update', $this->category->shoppingList);
-
-        $product->update([
-            'name' => $this->newProductNames[$id],
-        ]);
-
-        $this->category->load('products');
-
-        $this->reset('newProductNames');
-    }
-
-    public function deleteProduct(int $id)
-    {
-        $product = Product::findOrFail($id);
-
+    public function delete() {
         $this->authorize('delete', $this->category->shoppingList);
 
-        $product->delete();
+        $this->category->delete();
 
-        $this->category->load('products');
-    }
-
-    public function createTag(int $id)
-    {
-        $product = Product::findOrFail($id);
-
-        $product->tag()->create([
-            'name' => $this->tagName,
-        ]);
-
-        $this->category->load('products');
+        $this->dispatch('category-delete', id: $this->category->id);
+        // $this->redirectRoute('shopping-lists.show', $this->id);
     }
 
     public function render()

@@ -67,66 +67,22 @@ class CategoryEditorTest extends TestCase
         ]);
     }
 
-    public function test_it_checks_and_unchecks_a_product()
+    public function test_it_deletes_a_category()
     {
         $user = User::factory()->create();
         $list = ShoppingList::factory()->create(['owner_id' => $user->id]);
-        $category = Category::factory()->create(['shopping_list_id' => $list->id]);
-        $product = Product::factory()->create([
-            'category_id' => $category->id,
-            'name' => 'Bread',
-            'is_completed' => false,
+        $category = Category::factory()->create([
+            'shopping_list_id' => $list->id,
+            'name' => 'Vegetables',
         ]);
 
         $this->actingAs($user);
 
         Livewire::test(CategoryEditor::class, ['category' => $category])
-            ->call('checkProduct', $product->id);
+            ->call('delete', $category->id);
 
-        $this->assertTrue($product->fresh()->is_completed);
-
-        Livewire::test(CategoryEditor::class, ['category' => $category])
-            ->call('checkProduct', $product->id);
-
-        $this->assertFalse($product->fresh()->is_completed);
-    }
-
-    public function test_it_updates_a_product_name()
-    {
-        $user = User::factory()->create();
-        $list = ShoppingList::factory()->create(['owner_id' => $user->id]);
-        $category = Category::factory()->create(['shopping_list_id' => $list->id]);
-        $product = Product::factory()->create([
-            'category_id' => $category->id,
-            'name' => 'Old Name',
-        ]);
-
-        $this->actingAs($user);
-
-        Livewire::test(CategoryEditor::class, ['category' => $category])
-            ->set("newProductNames.{$product->id}", 'New Name')
-            ->call('updateProduct', $product->id);
-
-        $this->assertEquals('New Name', $product->fresh()->name);
-    }
-
-    public function test_it_deletes_a_product()
-    {
-        $user = User::factory()->create();
-        $list = ShoppingList::factory()->create(['owner_id' => $user->id]);
-        $category = Category::factory()->create(['shopping_list_id' => $list->id]);
-        $product = Product::factory()->create([
-            'category_id' => $category->id,
-            'name' => 'Eggs',
-        ]);
-
-        $this->actingAs($user);
-
-        Livewire::test(CategoryEditor::class, ['category' => $category])
-            ->call('deleteProduct', $product->id);
-
-        $this->assertDatabaseMissing('products', [
-            'id' => $product->id,
+        $this->assertDatabaseMissing('categories', [
+            'id' => $category->id,
         ]);
     }
 }

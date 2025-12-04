@@ -42,6 +42,8 @@ class ShareMenu extends Component
         $this->shoppingList->load('members');
 
         $this->reset(['userEmail']);
+
+        session()->flash('success', 'Shopping list shared successfully');
     }
 
     public function render()

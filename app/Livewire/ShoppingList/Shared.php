@@ -38,6 +38,7 @@ class Shared extends Component
             ->whereHas('members', function ($query) {
                 $query->where('user_id', Auth::id());
             })
+            ->where('owner_id', '!=', Auth::id())
             ->where('title', 'like', '%' . $this->search . '%')
             ->paginate(10)]);
     }

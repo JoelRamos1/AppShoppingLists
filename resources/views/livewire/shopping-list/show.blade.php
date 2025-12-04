@@ -34,20 +34,7 @@
     {{-- Categories --}}
     <div class="flex flex-col gap-4 mt-4">
         @forelse ($shopping_list->categories as $category)
-            <div class="border rounded-xs p-4">
-                <div class="flex flex-row gap-2 items-center mb-2">
-                    <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>
-                    <flux:dropdown>
-                        <flux:button icon="bars-3" variant="ghost" />
-                        <flux:menu>
-                            <flux:menu.item icon="pencil">{{ __('Change Name of Category') }}</flux:menu.item>
-                            <flux:menu.item icon="trash" variant="danger" wire:click="delete({{ $category->id }})" wire:confirm="{{ __('Do you really want to delete this category') }}">{{ __('Delete Category') }}</flux:menu.item>
-                        </flux:menu>
-                    </flux:dropdown>
-                </div>
-
-                <livewire:shopping-list.category-editor :category="$category" :key="'category-' . $category->id" lazy />
-            </div>
+            <livewire:shopping-list.category-editor :category="$category" :key="'category-' . $category->id" lazy />
         @empty
             <flux:text>{{ __('There are no categories in this shopping list. Create one above.') }}</flux:text>
         @endforelse

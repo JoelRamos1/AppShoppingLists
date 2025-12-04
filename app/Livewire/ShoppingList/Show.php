@@ -4,6 +4,7 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\Category;
 use App\Models\ShoppingList;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -23,9 +24,14 @@ class Show extends Component
         $this->shopping_list = ShoppingList::find($this->id);
     }
 
+    #[On('category-delete')]
+    public function refreshShoppingList(int $id)
+    {
+        $this->shopping_list->refresh();
+    }
+
     public function deleteShoppingList()
     {
-
         $this->authorize('delete', $this->shopping_list);
 
         $this->shopping_list->delete();
@@ -46,17 +52,8 @@ class Show extends Component
 
         session()->flash('success', 'Category created successfully');
 
-        $this->redirectRoute('shopping-lists.show', $this->id);
-    }
-
-    public function delete(int $id) {
-        $category = Category::findOrFail($id);
-
-        $this->authorize('delete', $this->shopping_list);
-
-        $category->delete();
-
-        $this->redirectRoute('shopping-lists.show', $this->id);
+        $this->shopping_list->refresh();
+        // $this->redirectRoute('shopping-lists.show', $this->id);
     }
 
     public function render()

@@ -22,6 +22,7 @@ class CategoryEditor extends Component
     }
 
     #[On('product-deleted')]
+    #[On('category-updated')]
     public function refreshProducts(int $id)
     {
         $this->category->refresh();

@@ -43,6 +43,8 @@ class ProductItem extends Component
         $this->product->update([
             'name' => $this->newName,
         ]);
+
+        $this->dispatch('product-updated');
     }
 
     public function deleteProduct()

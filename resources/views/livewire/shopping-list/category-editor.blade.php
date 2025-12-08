@@ -2,7 +2,7 @@
     {{-- Stop trying to control. --}}
     <div class="flex flex-row gap-2 items-center mb-2">
         <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>
-        <livewire:shopping-list.components.category-change-name :category="$category" :key="$category->id"/>
+        <livewire:shopping-list.components.category-change-name :category="$category" :key="$category->id" lazy/>
         <flux:dropdown>
             <flux:button icon="bars-3" variant="ghost" />
             <flux:menu>

@@ -10,8 +10,6 @@ class TagList extends Component
 
     public function deleteTag()
     {
-        $this->authorize('delete', $this->tag->product->category->shoppingList);
-
         $this->tag->delete();
 
         $this->dispatch('tag-delete', id: $this->tag->id);

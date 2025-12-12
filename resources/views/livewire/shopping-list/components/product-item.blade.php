@@ -11,14 +11,14 @@
             @endforeach
         </ul>
     @endif
-    <form wire:submit="createTag" class="flex flex-row gap-2">
-        <input class="border-b-2 border-b-zinc-200 dark:border-b-zinc-600 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
-        <button type="submit" ><flux:icon.plus /></button>
-    </form>
     <div class="ml-auto">
+        <flux:modal.trigger name="add-tag.{{ $product->id }}">
+            <flux:button icon="plus" variant="primary"></flux:button>
+        </flux:modal.trigger>
         <flux:modal.trigger name="change-product-name.{{ $product->id }}">
             <flux:button icon="pencil"></flux:button>
         </flux:modal.trigger>
+        <flux:dropdown></flux:dropdown>
         <flux:button type="button" wire:click="deleteProduct()" wire:confirm="{{ __('Are you sure you want to delete this product?') }}" icon="trash" variant="danger" />
     </div>
 
@@ -30,5 +30,12 @@
             <flux:input wire:model="newName" label="{{ __('New product name') }}" placeholder="{{ __('Product Name') }}"></flux:input>
             <flux:button type="submit" x-on:click="$flux.modals().close()">{{ __('Update') }}</flux:button>
         </form>
+    </flux:modal>
+
+    <flux:modal name="add-tag.{{ $product->id }}">
+        <form wire:submit="createTag" class="flex flex-row gap-2 w-full">
+        <input class="w-fit border-b-2 border-b-zinc-200 dark:border-b-zinc-600 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
+        <button type="submit" ><flux:icon.plus /></button>
+    </form>
     </flux:modal>
 </div>

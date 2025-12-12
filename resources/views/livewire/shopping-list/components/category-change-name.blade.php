@@ -1,6 +1,6 @@
 <div>
     <flux:modal.trigger name="change-name-category.{{ $category->id }}">
-        <flux:button icon="pencil"></flux:button>
+        <flux:button variant="ghost" icon="pencil"></flux:button>
     </flux:modal.trigger>
 
     <flux:modal name="change-name-category.{{ $category->id }}">

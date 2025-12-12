@@ -38,7 +38,7 @@ Route::get('/google-auth/callback', function () {
 
     Auth::login($user);
 
-    return redirect()->route('dashboard');
+    return redirect()->route('shopping-lists.index');
 });
 
 Route::get('info', function () {

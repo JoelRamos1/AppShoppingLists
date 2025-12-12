@@ -32,11 +32,11 @@
         @if (count($shoppingLists))
             @foreach ($shoppingLists as $shoppingList)
                 <div wire:key="{{ $shoppingList->id }}"
-                    class="grid grid-cols-2 items-center border-2 border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
+                    class="grid grid-cols-2 items-center border-2 rounded-2xl border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
                     <div>
                         <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
                             class="font-semibold">{{ $shoppingList->title }}</a>
-                        <flux:text>{{ __('Created ') }}{{ $shoppingList->created_at }} | {{ __('Last modified ') }}{{ $shoppingList->updated_at }}</flux:text>
+                        <flux:text class="hidden lg:block">{{ __('Created ') }}{{ $shoppingList->created_at }} | {{ __('Last modified ') }}{{ $shoppingList->updated_at }}</flux:text>
                     </div>
                     <div class="flex justify-self-end gap-2">
                         <flux:button variant="ghost" icon="pencil"

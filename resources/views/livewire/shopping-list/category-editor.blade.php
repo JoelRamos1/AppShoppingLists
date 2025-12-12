@@ -2,10 +2,10 @@
     {{-- Stop trying to control. --}}
     <div class="flex flex-row gap-2 items-center mb-2">
         <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>
+        <livewire:shopping-list.components.category-change-name :category="$category" :key="$category->id" lazy/>
         <flux:dropdown>
             <flux:button icon="bars-3" variant="ghost" />
             <flux:menu>
-                <flux:menu.item icon="pencil">{{ __('Change Name of Category') }}</flux:menu.item>
                 <flux:menu.item icon="trash" variant="danger" wire:click="delete()"
                     wire:confirm="{{ __('Do you really want to delete this category') }}">{{ __('Delete Category') }}
                 </flux:menu.item>

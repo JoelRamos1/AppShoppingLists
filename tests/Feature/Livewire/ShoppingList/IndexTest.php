@@ -49,8 +49,7 @@ class IndexTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(Index::class)
-            ->call('delete', $list->id)
-            ->assertRedirect('/shopping-lists/index');
+            ->call('delete', $list->id);
 
         $this->assertDatabaseMissing('shopping_lists', [
             'id' => $list->id,

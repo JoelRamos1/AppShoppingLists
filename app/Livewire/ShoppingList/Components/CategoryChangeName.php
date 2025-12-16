@@ -3,16 +3,22 @@
 namespace App\Livewire\ShoppingList\Components;
 
 use App\Models\Category;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CategoryChangeName extends Component
 {
     public Category $category;
 
-    public $newCategoryName = '';
+    #[Validate('required|string|max:255')]
+    public string $newCategoryName = '';
 
     public function changeCategoryName()
     {
+        $this->authorize('update', $this->category->shoppingList);
+
+        $this->validate();
+
         $this->category->update([
             'name' => $this->newCategoryName,
         ]);

@@ -10,7 +10,7 @@
     </div>
     <flux:separator variant="subtle" />
     <div class="mt-4 flex flex-row gap-2">
-        <flux:input type="text" wire:model.live.debounce.500ms="search" wire:keydown.enter="updatingSearch()" placeholder="{{ __('Search through your shopping lists') }}" />
+        <flux:input type="text" wire:model.live.debounce.500ms="search" wire:keydown.enter="reloadSearch()" placeholder="{{ __('Search through your shopping lists') }}" />
         <flux:dropdown>
             <flux:button icon:trailing="adjustments-vertical">{{ __('Sort') }}</flux:button>
 
@@ -32,7 +32,7 @@
         @if (count($shoppingLists))
             @foreach ($shoppingLists as $shoppingList)
                 <div wire:key="{{ $shoppingList->id }}"
-                    class="grid grid-cols-2 items-center border-2 rounded-2xl border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
+                    class="grid grid-cols-2 items-center border-2 rounded-lg border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
                     <div>
                         <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
                             class="font-semibold">{{ $shoppingList->title }}</a>

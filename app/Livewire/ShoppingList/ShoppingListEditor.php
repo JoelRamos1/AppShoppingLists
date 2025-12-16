@@ -11,11 +11,11 @@ class ShoppingListEditor extends Component
 {
     public ShoppingList $shoppingList;
 
-    public $newTitle = '';
+    public string $newTitle = '';
 
-    public $userEmail = '';
+    public string $userEmail = '';
 
-    public $role = 'editor';
+    public string $role = 'editor';
 
     public function mount(int $id) {
         $this->shoppingList = ShoppingList::findOrFail($id);
@@ -28,13 +28,15 @@ class ShoppingListEditor extends Component
             'title' => $this->newTitle,
         ]);
 
-        return $this->redirectRoute('shopping-lists.show', $this->shoppingList->id);
+
+        $this->shoppingList->refresh();
+        // return $this->redirectRoute('shopping-lists.show', $this->shoppingList->id);
     }
 
     public function invite()
     {
         $this->validate([
-            'userEmail' => 'required',
+            'userEmail' => 'required|string|max:255',
             'role' => 'required',
         ]);
 

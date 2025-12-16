@@ -56,8 +56,7 @@ class ShoppingListEditorTest extends TestCase
 
         Livewire::test(ShoppingListEditor::class, ['id' => $list->id])
             ->set('newTitle', 'New Title')
-            ->call('updateTitle')
-            ->assertRedirect(route('shopping-lists.show', $list->id));
+            ->call('updateTitle');
 
         $this->assertDatabaseHas('shopping_lists', [
             'id' => $list->id,

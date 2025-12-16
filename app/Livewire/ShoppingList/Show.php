@@ -10,14 +10,14 @@ use Livewire\Component;
 
 class Show extends Component
 {
-    public $id;
+    public int $id;
 
     public ShoppingList $shopping_list;
 
     #[Validate('required|string|max:255')]
-    public $name = '';
+    public string $name = '';
 
-    public $newTitle = '';
+    public string $newTitle = '';
 
     public function mount()
     {
@@ -53,7 +53,6 @@ class Show extends Component
         session()->flash('success', 'Category created successfully');
 
         $this->shopping_list->refresh();
-        // $this->redirectRoute('shopping-lists.show', $this->id);
     }
 
     public function render()

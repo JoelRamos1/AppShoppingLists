@@ -8,11 +8,11 @@ use Livewire\Component;
 
 class ProductItem extends Component
 {
-    public $product;
+    public Product $product;
 
-    public $newName;
+    public string $newName;
 
-    public $tagName = '';
+    public string $tagName;
 
     public function mount(Product $product)
     {
@@ -40,6 +40,10 @@ class ProductItem extends Component
     {
         $this->authorize('update', $this->product->category->shoppingList);
 
+        $this->validate([
+            'newName' => 'required|string|max:255',
+        ]);
+
         $this->product->update([
             'name' => $this->newName,
         ]);
@@ -47,9 +51,10 @@ class ProductItem extends Component
         $this->dispatch('product-updated');
     }
 
+    // No borra etiquetas
     public function deleteProduct()
     {
-        $this->authorize('update', $this->product->category->shoppingList);
+        $this->authorize('delete', $this->product->category->shoppingList);
 
         $this->product->delete();
 
@@ -60,15 +65,17 @@ class ProductItem extends Component
     {
         $this->authorize('create', $this->product->category->shoppingList);
 
+        $this->validate([
+            'tagName' => 'required|string|max:20',
+        ]);
+
         $this->product->tag()->create([
             'name' => $this->tagName,
         ]);
 
         $this->reset('tagName');
 
-        $this->product->load('tag');
-
-        $this->dispatch('tag-created');
+        $this->product->refresh();
     }
 
     public function render()

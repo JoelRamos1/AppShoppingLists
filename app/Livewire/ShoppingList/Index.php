@@ -14,11 +14,11 @@ class Index extends Component
 
     public string $search = '';
 
-    public string $sortBy = 'created_at';
+    public string $sortBy = 'updated_at';
 
-    public string $sortDirection = 'asc';
+    public string $sortDirection = 'desc';
 
-    public function updatingSearch()
+    public function reloadSearch()
     {
         $this->resetPage();
     }
@@ -27,11 +27,13 @@ class Index extends Component
     {
         $shopping_list = ShoppingList::find($id);
 
+        $this->authorize('delete', $shopping_list);
+
         if($shopping_list) {
             $shopping_list->delete();
         }
 
-        return $this->redirect('/shopping-lists/index');
+        $shopping_list->refresh();
     }
 
     public function render()
@@ -43,6 +45,7 @@ class Index extends Component
                                                                                         $query->orderBy($this->sortBy, $this->sortDirection);
                                                                                      })
                                                                                      ->where('owner_id', Auth::id())
+                                                                                     ->where('title', 'like', '%' . $this->search . '%')
                                                                                      ->paginate(10)]);
     }
 }

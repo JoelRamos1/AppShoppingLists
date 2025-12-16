@@ -12,9 +12,9 @@ class ShareMenu extends Component
 {
     public ShoppingList $shoppingList;
 
-    public $userEmail = '';
+    public string $userEmail = '';
 
-    public $role = 'editor';
+    public string $role = 'editor';
 
     public function mount(ShoppingList $shoppingList) {
         $this->shoppingList = $shoppingList;
@@ -23,7 +23,7 @@ class ShareMenu extends Component
     public function invite()
     {
         $this->validate([
-            'userEmail' => 'required',
+            'userEmail' => 'required|email',
             'role' => 'required',
         ]);
 

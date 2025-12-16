@@ -14,7 +14,7 @@ class CategoryEditor extends Component
     public Category $category;
 
     #[Validate('required|string|max:255')]
-    public $name = '';
+    public string $name = '';
 
     public function mount(Category $category)
     {
@@ -49,7 +49,6 @@ class CategoryEditor extends Component
         $this->category->delete();
 
         $this->dispatch('category-delete', id: $this->category->id);
-        // $this->redirectRoute('shopping-lists.show', $this->id);
     }
 
     public function render()

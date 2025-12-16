@@ -14,19 +14,6 @@ class Shared extends Component
 
     public string $search = '';
 
-    // public function mount()
-    // {
-    //     $user = Auth::user();
-
-    //     // $this->shoppingLists = ShoppingList::where('is_shared', true)->get();
-
-        // $this->shoppingLists = ShoppingList::where('is_shared', true)
-        //     ->where('owner_id', '!=', $user->id)
-        //     ->where('title', 'like', '%' . $this->search . '%')
-        //     ->latest()
-        //     ->get();
-    // }
-
     public function updatingSearch()
     {
         $this->resetPage();

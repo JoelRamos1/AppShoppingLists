@@ -10,7 +10,7 @@
     @endif
 
     {{-- Title --}}
-    <div class="flex flex-row items-center gap-2 mb-4">
+    <div class="flex flex-row items-center justify-between gap-2 mb-4">
         <flux:heading size="xl" class="font-bold dark:font-bold">{{ $shopping_list->title }}</flux:heading>
         <flux:dropdown>
             <flux:button icon="cog-8-tooth" variant="ghost" icon:variant="outline"></flux:button>

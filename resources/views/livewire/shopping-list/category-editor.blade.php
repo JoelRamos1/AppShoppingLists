@@ -1,4 +1,4 @@
-<div class="border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 rounded-xs px-4 py-2">
+<div class="border rounded-lg dark:rounded-lg border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 px-4 py-2">
     {{-- Stop trying to control. --}}
     <div class="flex flex-row gap-2 items-center mb-2">
         <flux:heading size="lg" class="font-bold dark:font-bold">{{ $category->name }}</flux:heading>

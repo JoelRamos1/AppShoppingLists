@@ -10,7 +10,7 @@ use Livewire\Component;
 class Create extends Component
 {
     #[Validate('required|string|max:255')]
-    public $title = '';
+    public string $title = '';
 
     public function save()
     {

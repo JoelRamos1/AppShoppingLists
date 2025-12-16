@@ -2,14 +2,17 @@
 
 namespace App\Livewire\ShoppingList\Components;
 
+use App\Models\Tag;
 use Livewire\Component;
 
 class TagList extends Component
 {
-    public $tag;
+    public Tag $tag;
 
     public function deleteTag()
     {
+        // $this->authorize('delete', $this->tag->product->category->shoppingList);
+
         $this->tag->delete();
 
         $this->dispatch('tag-delete', id: $this->tag->id);

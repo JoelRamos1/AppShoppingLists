@@ -41,7 +41,7 @@ class ShoppingListEditorTest extends TestCase
         Livewire::test(ShoppingListEditor::class, ['id' => $list->id])
             ->assertSee('Edit Shopping List "My List"')
             ->assertSee(__('Information'))
-            ->assertSee(__('Sharing'));
+            ->assertSee(__('Share'));
     }
 
     public function test_it_updates_the_title()

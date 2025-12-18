@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class ShoppingList extends Model
 {
@@ -44,6 +45,11 @@ class ShoppingList extends Model
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function products(): HasManyThrough
+    {
+        return $this->hasManyThrough(Product::class, Category::class);
     }
 
     public function isOwnedBy(User $user): bool

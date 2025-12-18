@@ -35,4 +35,13 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class, 'product_tag');
     }
+
+    protected static function booted()
+    {
+        static::deleted(function ($product) {
+            $product->tag()->each(function ($tag) {
+                $tag->delete();
+            });
+        });
+    }
 }

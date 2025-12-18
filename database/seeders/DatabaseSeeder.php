@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
             'password' => 'usertesting',
         ]);
 
-        ShoppingList::Factory(10)->withOwner($user)->create();
+        ShoppingList::Factory(20)->withOwner($user)->create();
 
-        Category::Factory(20)->create();
+        Category::Factory(40)->create();
 
-        Product::Factory(30)->create();
+        Product::Factory(60)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',

@@ -52,6 +52,8 @@ class Show extends Component
 
         session()->flash('success', 'Category created successfully');
 
+        $this->reset(['name']);
+
         $this->shopping_list->refresh();
     }
 

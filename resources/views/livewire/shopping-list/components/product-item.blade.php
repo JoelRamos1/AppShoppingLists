@@ -28,12 +28,12 @@
                 <flux:button variant="ghost" icon="ellipsis-horizontal"></flux:button>
                 <flux:menu>
                     <flux:modal.trigger name="add-tag.{{ $product->id }}">
-                        <flux:menu.item>{{ __('Add tag') }}</flux:menu.item>
+                        <flux:menu.item icon="plus">{{ __('Add tag') }}</flux:menu.item>
                     </flux:modal.trigger>
                     <flux:modal.trigger name="change-product-name.{{ $product->id }}">
-                        <flux:menu.item>{{ __('Change product name') }}</flux:menu.item>
+                        <flux:menu.item icon="pencil">{{ __('Change product name') }}</flux:menu.item>
                     </flux:modal.trigger>
-                    <flux:menu.item wire:click="deleteProduct()" wire:confirm="{{ __('Are you sure you want to delete this product?') }}">{{ __('Delete product') }}</flux:menu.item>
+                    <flux:menu.item icon="trash" variant="danger" wire:click="deleteProduct()" wire:confirm="{{ __('Are you sure you want to delete this product?') }}">{{ __('Delete product') }}</flux:menu.item>
                 </flux:menu>
             </flux:dropdown>
         </div>

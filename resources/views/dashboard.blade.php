@@ -5,6 +5,10 @@
             {{-- <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                 <livewire:shopping-list.components.shopping-lists-info />
             </div> --}}
+            <div class="flex flex-col text-center p-4 gap-4 justify-center relative aspect-video rounded-xl border border-neutral-200 dark:border-neutral-700">
+                <flux:text>{{ __('Create a shopping list!') }}</flux:text>
+                <flux:button variant="primary" icon="plus" href="{{ route('shopping-lists.create') }}">{{ __('Create list') }}</flux:button>
+            </div>
             <livewire:shopping-list.components.shopping-lists-info />
 
 

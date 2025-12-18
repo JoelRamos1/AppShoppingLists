@@ -16,6 +16,9 @@ class CategoryEditor extends Component
     #[Validate('required|string|max:255')]
     public string $name = '';
 
+    // #[Validate('required|string|max:255')]
+    public string $newCategoryName = '';
+
     public function mount(Category $category)
     {
         $this->category = $category->load('products');
@@ -26,6 +29,22 @@ class CategoryEditor extends Component
     public function refreshProducts(int $id)
     {
         $this->category->refresh();
+    }
+
+    public function changeCategoryName()
+    {
+        $this->authorize('update', $this->category->shoppingList);
+
+        $this->validate();
+
+        $this->category->update([
+            'name' => $this->newCategoryName,
+        ]);
+
+        $this->reset('newCategoryName');
+        $this->category->refresh();
+
+        $this->dispatch('category-updated', id: $this->category->id);
     }
 
     public function newProduct()

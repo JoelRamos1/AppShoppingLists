@@ -21,7 +21,7 @@ class IndexTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(Index::class)
-            ->assertSee(__('You have not created any lists'));
+            ->assertSee(__('You have not created any shopping lists.'));
     }
 
     public function test_it_shows_user_shopping_lists()

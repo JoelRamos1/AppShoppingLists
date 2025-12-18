@@ -1,4 +1,4 @@
-<div class="relative">
+<div class="w-full">
     <div>
         <div>
             <flux:heading size="xl" class="font-bold dark:font-bold">{{__('New Shopping List')}}</flux:heading>
@@ -8,9 +8,8 @@
         <div class="mt-4">
             <form wire:submit="save" class="flex flex-col gap-4">
                 <flux:field>
-                    <flux:label>{{__('Title')}}</flux:label>
-                    <flux:description>{{__('This will be the title of your shopping list')}}</flux:description>
-                    <flux:input wire:model="title" placeholder="{{ __('Morning buy, emergency food, etc') }}"></flux:input>
+                    <flux:label>{{__('Title of the shopping list')}}</flux:label>
+                    <flux:input wire:model="title" placeholder="{{ __('Groceries, weekend shopping, food...') }}"></flux:input>
                     <flux:error name="title"></flux:error>
                 </flux:field>
                 <flux:button variant="primary" icon="plus" type="submit">{{__('Create')}}</flux:button>

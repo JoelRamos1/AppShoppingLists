@@ -5,6 +5,7 @@ namespace App\Livewire\ShoppingList;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,6 +18,14 @@ class Index extends Component
     public string $sortBy = 'updated_at';
 
     public string $sortDirection = 'desc';
+
+    #[On('list-deleted')]
+    public function refreshIndex(int $id)
+    {
+        $shoppingList = ShoppingList::findOrFail($id);
+
+        $shoppingList->refresh();
+    }
 
     public function reloadSearch()
     {

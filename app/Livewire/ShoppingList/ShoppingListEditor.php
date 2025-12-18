@@ -33,6 +33,17 @@ class ShoppingListEditor extends Component
         // return $this->redirectRoute('shopping-lists.show', $this->shoppingList->id);
     }
 
+    public function shareList()
+    {
+        $this->authorize('update', $this->shoppingList);
+
+        $this->shoppingList->update([
+            'is_shared' => ! $this->shoppingList->is_shared,
+        ]);
+
+        $this->shoppingList->refresh();
+    }
+
     public function invite()
     {
         $this->validate([

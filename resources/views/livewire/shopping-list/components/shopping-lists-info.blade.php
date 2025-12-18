@@ -1,4 +1,4 @@
-<div class="relative aspect-video rounded-xl border border-neutral-200 dark:border-zinc-700 p-4">
+<div class="relative aspect-video p-4 rounded-xl border border-neutral-200 dark:border-zinc-700 p-4">
     {{-- Success is as dangerous as failure. --}}
     <flux:heading size="lg" class="font-bold mb-2">Recent Shopping Lists</flux:heading>
     <div class="mt-2">

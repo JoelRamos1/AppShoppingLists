@@ -4,7 +4,7 @@
         <div>
             <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
                 class="font-semibold">{{ $shoppingList->title }}</a>
-            <flux:text class="hidden lg:block">{{ __('Created ') }}{{ $shoppingList->created_at }} |
+            <flux:text class="max-xl:hidden">{{ __('Created ') }}{{ $shoppingList->created_at }} |
                 {{ __('Last modified ') }}{{ $shoppingList->updated_at }}</flux:text>
         </div>
         <div class="flex gap-2 items-center">

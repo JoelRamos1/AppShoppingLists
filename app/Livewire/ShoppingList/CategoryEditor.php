@@ -14,7 +14,7 @@ class CategoryEditor extends Component
     public Category $category;
 
     #[Validate('required|string|max:255')]
-    public string $name = '';
+    public string $prodcutName = '';
 
     // #[Validate('required|string|max:255')]
     public string $newCategoryName = '';
@@ -35,8 +35,6 @@ class CategoryEditor extends Component
     {
         $this->authorize('update', $this->category->shoppingList);
 
-        $this->validate();
-
         $this->category->update([
             'name' => $this->newCategoryName,
         ]);
@@ -49,11 +47,10 @@ class CategoryEditor extends Component
 
     public function newProduct()
     {
-        $this->validate();
         $this->authorize('create', $this->category->shoppingList);
 
         $this->category->products()->create([
-            'name' => $this->name,
+            'name' => $this->productName,
         ]);
 
         $this->category->refresh();

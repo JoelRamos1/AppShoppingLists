@@ -15,9 +15,9 @@
         </flux:dropdown>
     </div>
     <form wire:submit.prevent="newProduct" class="flex flex-row gap-2 mb-2">
-        <flux:input wire:model="name" placeholder="{{ __('Product') }}" />
+        <flux:input wire:model="productName" placeholder="{{ __('Product') }}" />
         <flux:button icon="plus" variant="primary" type="submit">{{ __('Add product') }}</flux:button>
-        <flux:error name="name"></flux:error>
+        <flux:error name="productName"></flux:error>
     </form>
 
     <div class="flex flex-col gap-2 mt-4">

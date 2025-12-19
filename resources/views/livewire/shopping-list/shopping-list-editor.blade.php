@@ -27,7 +27,7 @@
             <flux:heading size="lg" class="font-semibold dark:font-semibold">{{ __('Share') }}</flux:heading>
         </div>
         <div class="mb-4">
-            <flux:heading>{{ __('Status') }}</flux:heading>
+            <flux:heading size="lg">{{ __('Status') }}</flux:heading>
             <div class="flex flex-col gap-2">
                 @if ($shoppingList->is_shared)
                     <flux:text>{{ __('Your shopping list is currently visible to other users.') }}</flux:text>
@@ -42,7 +42,7 @@
         </div>
         <div>
             <flux:heading size="lg">{{ __('Members') }}</flux:heading>
-            @if ($shoppingList->is_shared)
+            @if ($shoppingList->members)
 
                 <table class="border-collapse border border-zinc-200 dark:border-zinc-700 mt-4">
                     <thead>

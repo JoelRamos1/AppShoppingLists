@@ -14,7 +14,7 @@ class CategoryEditor extends Component
     public Category $category;
 
     #[Validate('required|string|max:255')]
-    public string $prodcutName = '';
+    public string $productName = '';
 
     // #[Validate('required|string|max:255')]
     public string $newCategoryName = '';
@@ -54,7 +54,7 @@ class CategoryEditor extends Component
         ]);
 
         $this->category->refresh();
-        $this->reset('name');
+        $this->reset('productName');
 
         $this->dispatch('product-added');
     }

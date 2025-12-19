@@ -11,7 +11,7 @@
     <div class="flex flex-col gap-4 mt-4">
             @if (count($shoppingLists))
                 @foreach ($shoppingLists as $shoppingList)
-                    <div wire:key="{{ $shoppingList->id }}"
+                    {{-- <div wire:key="{{ $shoppingList->id }}"
                         class="grid grid-cols-2 items-center border-2 border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
                         <div>
                             <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
@@ -22,7 +22,8 @@
                             <flux:button variant="ghost" icon="pencil"
                                 href="{{ route('shopping-list.edit', $shoppingList->id) }}"></flux:button>
                         </div>
-                    </div>
+                    </div> --}}
+                    <livewire:shopping-list.components.shopping-list-item :shoppingList="$shoppingList" />
                 @endforeach
             @else
                 <flux:text>{{ __('You do not have any shared shopping lists.') }}</flux:text>

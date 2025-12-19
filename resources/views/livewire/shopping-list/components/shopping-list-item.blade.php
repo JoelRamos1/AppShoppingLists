@@ -12,23 +12,27 @@
             <flux:button.group class="max-md:hidden">
                 <flux:button variant="filled" icon="pencil" href="{{ route('shopping-list.edit', $shoppingList->id) }}">
                 </flux:button>
+                @if($shoppingList->owner_id == Auth::id())
                 <flux:modal.trigger name="share-shopping-list.{{ $shoppingList->id }}">
                     <flux:button icon="share" variant="filled"></flux:button>
                 </flux:modal.trigger>
                 <flux:button variant="danger" color="red" icon="trash" wire:click="delete({{ $shoppingList->id }})"
                     wire:confirm="{{ __('Are you sure you want to delete this shopping list?') }}">
                 </flux:button>
+                @endif
             </flux:button.group>
             <flux:dropdown class="min-md:hidden">
                 <flux:button variant="filled" icon="ellipsis-horizontal"></flux:button>
                 <flux:menu>
                     <flux:menu.item icon="pencil" href="{{ route('shopping-list.edit', $shoppingList->id) }}">{{ __('Edit') }}</flux:menu.item>
+                    @if($shoppingList->owner_id == Auth::id())
                     <flux:modal.trigger name="share-shopping-list.{{ $shoppingList->id }}">
                         <flux:menu.item icon="share">{{ __('Share') }}</flux:menu.item>
                     </flux:modal.trigger>
                     <flux:menu.item variant="danger" icon="trash" wire:click="delete({{ $shoppingList->id }})"
                     wire:confirm="{{ __('Are you sure you want to delete this shopping list?') }}">{{ __('Delete') }}
                     </flux:menu.item>
+                    @endif
                 </flux:menu>
             </flux:dropdown>
         </div>

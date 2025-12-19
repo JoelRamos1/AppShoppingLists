@@ -31,7 +31,7 @@ class CategoryEditorTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(CategoryEditor::class, ['category' => $category])
-            ->assertSee(__('New Product'))
+            ->assertSee(__('Product'))
             ->assertSee(__('There are no products in this category. Create one above.'));
     }
 

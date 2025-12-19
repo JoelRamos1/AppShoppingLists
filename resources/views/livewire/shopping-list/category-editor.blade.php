@@ -20,7 +20,7 @@
         <flux:error name="name"></flux:error>
     </form>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 mt-4">
         @forelse ($category->products as $product)
             <livewire:shopping-list.components.product-item :product="$product" :key="$product->id" lazy />
         @empty

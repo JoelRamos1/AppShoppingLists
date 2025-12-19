@@ -4,6 +4,7 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -30,6 +31,7 @@ class Create extends Component
         return $this->redirectRoute('shopping-lists.show', $shoppingList->id);
     }
 
+    #[Title('Create Shopping List')]
     public function render()
     {
         return view('livewire.shopping-list.create');

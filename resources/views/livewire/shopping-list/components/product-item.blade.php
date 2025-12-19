@@ -55,22 +55,13 @@
     </flux:modal>
 
     <flux:modal name="add-tag.{{ $product->id }}" class="max-w-lg">
-        <form wire:submit.prevent="createTag" class="space-y-6">
+        <form wire:submit.prevent="createTag" class="flex flex-col space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Add tag') }}</flux:heading>
+                <flux:subheading>{{ __('Add tags to your products') }}</flux:subheading>
             </div>
-
-            {{-- <flux:input wire:model="tagName" label="{{ __('Tag name') }}" placeholder="{{ __('Tag name') }}"/>
-
-            <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                <flux:modal.close>
-                    <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
-                </flux:modal.close>
-                <flux:button variant="primary" type="submit">{{ __('Add tag') }}</flux:button>
-            </div> --}}
-
-            <input class="w-fit border-b-2 border-b-zinc-200 dark:border-b-zinc-600 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
-            <button type="submit" ><flux:icon.plus /></button>
+            <input class="w-fit border-2 rounded-lg border-b-zinc-200 dark:border-b-zinc-600 p-2" wire:model="tagName" placeholder="{{ __('Tag name') }}" />
+            <button type="submit" class="flex flex-row text-white justify-center bg-accent rounded-lg p-2" ><flux:icon.plus class="size-6" />{{ __('Add tag') }}</button>
         </form>
     </flux:modal>
 </div>

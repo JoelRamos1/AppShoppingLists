@@ -35,7 +35,7 @@ class ShoppingListEditor extends Component
 
     public function shareList()
     {
-        $this->authorize('update', $this->shoppingList);
+        $this->authorize('invite', $this->shoppingList);
 
         $this->shoppingList->update([
             'is_shared' => ! $this->shoppingList->is_shared,
@@ -85,12 +85,10 @@ class ShoppingListEditor extends Component
         $this->shoppingList->members()->detach($user->id);
 
         $this->shoppingList->load('members');
-
-        // return back();
     }
 
     public function render()
     {
-        return view('livewire.shopping-list.shopping-list-editor');
+        return view('livewire.shopping-list.shopping-list-editor')->title('Edit "'.$this->shoppingList->title.'"');
     }
 }

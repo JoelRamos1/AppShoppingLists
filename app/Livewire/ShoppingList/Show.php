@@ -5,6 +5,7 @@ namespace App\Livewire\ShoppingList;
 use App\Models\Category;
 use App\Models\ShoppingList;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -61,6 +62,6 @@ class Show extends Component
     {
         $this->authorize('view', $this->shopping_list);
 
-         return view('livewire.shopping-list.show');
+         return view('livewire.shopping-list.show')->title($this->shopping_list->title);
     }
 }

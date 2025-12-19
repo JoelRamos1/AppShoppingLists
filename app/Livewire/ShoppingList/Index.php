@@ -6,6 +6,7 @@ use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -45,6 +46,7 @@ class Index extends Component
         $shopping_list->refresh();
     }
 
+    #[Title('Shopping Lists')]
     public function render()
     {
         return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::query()

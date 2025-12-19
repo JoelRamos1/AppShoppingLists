@@ -5,6 +5,7 @@ namespace App\Livewire\ShoppingList;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +20,7 @@ class Shared extends Component
         $this->resetPage();
     }
 
+    #[Title('Shared Shopping Lists')]
     public function render()
     {
         return view('livewire.shopping-list.shared', ['shoppingLists' => ShoppingList::where('is_shared', true)

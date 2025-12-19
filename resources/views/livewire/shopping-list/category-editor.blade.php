@@ -9,21 +9,18 @@
                     <flux:menu.item icon="pencil">{{ __('Edit category') }}</flux:menu.item>
                 </flux:modal.trigger>
                 <flux:menu.item icon="trash" variant="danger" wire:click="delete()"
-                    wire:confirm="{{ __('Do you really want to delete this category') }}">{{ __('Delete Category') }}
+                    wire:confirm="{{ __('Do you really want to delete this category') }}">{{ __('Delete category') }}
                 </flux:menu.item>
             </flux:menu>
         </flux:dropdown>
     </div>
     <form wire:submit.prevent="newProduct" class="flex flex-row gap-2 mb-2">
-        <flux:input wire:model="name" placeholder="{{ __('New Product') }}" />
+        <flux:input wire:model="name" placeholder="{{ __('Product') }}" />
         <flux:button icon="plus" variant="primary" type="submit">{{ __('Add product') }}</flux:button>
         <flux:error name="name"></flux:error>
     </form>
-    {{-- @error('name')
-        <span class="text-red-500 text-sm">{{ $message }}</span>
-    @enderror --}}
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 mt-4">
         @forelse ($category->products as $product)
             <livewire:shopping-list.components.product-item :product="$product" :key="$product->id" lazy />
         @empty

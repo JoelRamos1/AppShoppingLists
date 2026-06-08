@@ -2,7 +2,6 @@
 
 namespace App\Livewire\ShoppingList\Components;
 
-use App\Models\Category;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Livewire\Component;

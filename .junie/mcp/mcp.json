@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/home/joel/.config/herd-lite/bin/php",
+            "args": [
+                "/home/joel/Proyectos/Laravel/app-shopping-lists/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}

@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire\ShoppingList\Components;
 
 use App\Livewire\ShoppingList\Components\TagList;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

@@ -10,19 +10,17 @@ use App\Livewire\ShoppingList\Shared;
 use App\Livewire\ShoppingList\ShoppingListEditor;
 use App\Livewire\ShoppingList\Show;
 use App\Livewire\Test;
-
-use App\Models\ShoppingList;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/google-auth/redirect', function() {
+Route::get('/google-auth/redirect', function () {
     return Socialite::driver('google')->redirect();
 });
 

@@ -3,7 +3,6 @@
 namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -39,7 +38,7 @@ class Index extends Component
 
         $this->authorize('delete', $shopping_list);
 
-        if($shopping_list) {
+        if ($shopping_list) {
             $shopping_list->delete();
         }
 
@@ -50,13 +49,13 @@ class Index extends Component
     public function render()
     {
         return view('livewire.shopping-list.index', ['shoppingLists' => ShoppingList::query()
-                                                                                     ->when($this->sortBy === 'title', function ($query) {
-                                                                                        $query->orderByRaw('LOWER(title)' . $this->sortDirection);
-                                                                                     }, function ($query) {
-                                                                                        $query->orderBy($this->sortBy, $this->sortDirection);
-                                                                                     })
-                                                                                     ->where('owner_id', Auth::id())
-                                                                                     ->where('title', 'like', '%' . $this->search . '%')
-                                                                                     ->paginate(10)]);
+            ->when($this->sortBy === 'title', function ($query) {
+                $query->orderByRaw('LOWER(title)'.$this->sortDirection);
+            }, function ($query) {
+                $query->orderBy($this->sortBy, $this->sortDirection);
+            })
+            ->where('owner_id', Auth::id())
+            ->where('title', 'like', '%'.$this->search.'%')
+            ->paginate(10)]);
     }
 }

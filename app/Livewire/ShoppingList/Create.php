@@ -22,7 +22,7 @@ class Create extends Component
             'title' => $this->title,
         ]);
 
-        $shoppingList->members()->attach(Auth::id(), ['role' =>'owner']);
+        $shoppingList->members()->attach(Auth::id(), ['role' => 'owner']);
 
         // $list = ShoppingList::latest()->first();
 

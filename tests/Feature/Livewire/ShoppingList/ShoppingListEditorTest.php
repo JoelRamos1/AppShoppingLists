@@ -6,7 +6,6 @@ use App\Livewire\ShoppingList\ShoppingListEditor;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

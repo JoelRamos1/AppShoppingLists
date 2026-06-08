@@ -4,11 +4,9 @@ namespace Tests\Feature\Livewire\ShoppingList;
 
 use App\Livewire\ShoppingList\CategoryEditor;
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 

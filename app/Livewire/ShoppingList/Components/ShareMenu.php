@@ -4,8 +4,6 @@ namespace App\Livewire\ShoppingList\Components;
 
 use App\Models\ShoppingList;
 use App\Models\User;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ShareMenu extends Component
@@ -16,7 +14,8 @@ class ShareMenu extends Component
 
     public string $role = 'editor';
 
-    public function mount(ShoppingList $shoppingList) {
+    public function mount(ShoppingList $shoppingList)
+    {
         $this->shoppingList = $shoppingList;
     }
 

@@ -4,7 +4,6 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
 use App\Models\User;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ShoppingListEditor extends Component
@@ -17,17 +16,18 @@ class ShoppingListEditor extends Component
 
     public string $role = 'editor';
 
-    public function mount(int $id) {
+    public function mount(int $id)
+    {
         $this->shoppingList = ShoppingList::findOrFail($id);
     }
 
-    public function updateTitle() {
+    public function updateTitle()
+    {
         $this->authorize('update', $this->shoppingList);
 
         $this->shoppingList->update([
             'title' => $this->newTitle,
         ]);
-
 
         $this->shoppingList->refresh();
         // return $this->redirectRoute('shopping-lists.show', $this->shoppingList->id);

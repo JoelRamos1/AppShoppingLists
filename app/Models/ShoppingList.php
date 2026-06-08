@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class ShoppingList extends Model
@@ -37,8 +36,8 @@ class ShoppingList extends Model
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'shopping_list_user')
-                    ->withPivot('role')
-                    ->withTimestamps();
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     // Returns the categories of the shopping list
@@ -77,8 +76,8 @@ class ShoppingList extends Model
     {
         return $this->isOwnedBy($user) ||
                $this->members()
-                    ->where('user_id', $user->id)
-                    ->wherePivot('role', 'editor')
-                    ->exists();
+                   ->where('user_id', $user->id)
+                   ->wherePivot('role', 'editor')
+                   ->exists();
     }
 }

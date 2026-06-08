@@ -8,7 +8,6 @@ use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -84,6 +83,5 @@ class ProductItemTest extends TestCase
     //     Livewire::test(ProductItem::class)
     //         ->assertStatus(200);
     // }
-
 
 }

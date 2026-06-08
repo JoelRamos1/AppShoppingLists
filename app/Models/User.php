@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
@@ -75,8 +76,8 @@ class User extends Authenticatable
     public function sharedLists(): BelongsToMany
     {
         return $this->belongsToMany(ShoppingList::class, 'shopping_list_user', 'user_id', 'shopping_list_id')
-                    ->withPivot('role')
-                    ->withTimestamps();
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     public function owns(ShoppingList $shoppingList): bool
@@ -88,8 +89,8 @@ class User extends Authenticatable
     {
         return $this->owns($shoppingList) ||
                $shoppingList->members()
-                            ->where('user_id')
-                            ->wherePivot('role', 'editor')
-                            ->exists();
+                   ->where('user_id')
+                   ->wherePivot('role', 'editor')
+                   ->exists();
     }
 }

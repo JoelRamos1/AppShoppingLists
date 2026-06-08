@@ -3,7 +3,6 @@
 namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -28,7 +27,7 @@ class Shared extends Component
                 $query->where('user_id', Auth::id());
             })
             ->where('owner_id', '!=', Auth::id())
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where('title', 'like', '%'.$this->search.'%')
             ->paginate(10)]);
     }
 }

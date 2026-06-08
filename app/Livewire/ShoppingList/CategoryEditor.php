@@ -3,8 +3,6 @@
 namespace App\Livewire\ShoppingList;
 
 use App\Models\Category;
-use App\Models\Product;
-use App\Models\Tag;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -59,7 +57,8 @@ class CategoryEditor extends Component
         $this->dispatch('product-added');
     }
 
-    public function delete() {
+    public function delete()
+    {
         $this->authorize('delete', $this->category->shoppingList);
 
         $this->category->delete();

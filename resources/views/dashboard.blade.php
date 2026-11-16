@@ -20,11 +20,11 @@
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
         </div> --}}
-        <div class="flex flex-col min-md:hidden">
-            <flux:button icon="plus" variant="primary" href="{{ route('shopping-lists.create') }}">
+        <div class="md:hidden">
+            <flux:button class="w-full justify-center" icon="plus" variant="primary" href="{{ route('shopping-lists.create') }}">
                 {{ __('Create a new shopping list') }}</flux:button>
         </div>
-        <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-2">
             <livewire:shopping-list.partials.recent-lists />
             <livewire:shopping-list.partials.shared-lists />
         </div>

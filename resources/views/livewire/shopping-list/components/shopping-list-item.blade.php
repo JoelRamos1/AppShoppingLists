@@ -1,13 +1,13 @@
 <div class="w-full">
     <div
-        class="flex flex-row items-center justify-between border-2 rounded-lg border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
-        <div>
+        class="flex flex-row items-center justify-between gap-2 border-2 rounded-lg border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white px-4 py-4">
+        <div class="min-w-0 flex-1">
             <a href="{{ route('shopping-lists.show', $shoppingList->id) }}"
-                class="font-semibold">{{ $shoppingList->title }}</a>
+                class="block truncate font-semibold" title="{{ $shoppingList->title }}">{{ $shoppingList->title }}</a>
             <flux:text class="max-xl:hidden">{{ __('Created ') }}{{ $shoppingList->created_at }} |
                 {{ __('Last modified ') }}{{ $shoppingList->updated_at }}</flux:text>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex shrink-0 gap-2 items-center">
             <flux:text>{{ $completedProducts . "/" . $totalProducts }}</flux:text>
             <flux:button.group class="max-md:hidden">
                 <flux:button variant="filled" icon="pencil" href="{{ route('shopping-list.edit', $shoppingList->id) }}">

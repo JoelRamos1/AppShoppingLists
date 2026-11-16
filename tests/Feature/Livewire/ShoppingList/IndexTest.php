@@ -60,4 +60,15 @@ class IndexTest extends TestCase
         Livewire::test(Index::class)
             ->assertStatus(200);
     }
+
+    public function test_index_page_renders_inside_the_application_layout()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('shopping-lists.index'))
+            ->assertOk()
+            ->assertSee(__('Shopping lists'))
+            ->assertSee('Shopping Lists');
+    }
 }

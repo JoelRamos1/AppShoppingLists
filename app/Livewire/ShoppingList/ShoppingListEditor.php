@@ -4,8 +4,10 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
 use App\Models\User;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class ShoppingListEditor extends Component
 {
     public ShoppingList $shoppingList;

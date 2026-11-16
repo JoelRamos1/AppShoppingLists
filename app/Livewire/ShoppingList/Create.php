@@ -4,10 +4,12 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class Create extends Component
 {
     #[Validate('required|string|max:255')]

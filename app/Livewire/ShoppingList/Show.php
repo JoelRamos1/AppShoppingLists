@@ -4,10 +4,12 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\Category;
 use App\Models\ShoppingList;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class Show extends Component
 {
     public int $id;

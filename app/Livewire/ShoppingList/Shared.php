@@ -4,10 +4,12 @@ namespace App\Livewire\ShoppingList;
 
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Layout('components.layouts.app')]
 class Shared extends Component
 {
     use WithPagination;

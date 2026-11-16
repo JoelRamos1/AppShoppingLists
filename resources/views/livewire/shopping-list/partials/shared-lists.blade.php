@@ -1,4 +1,4 @@
-<div class="w-full flex-1/2 border rounded-lg border-zinc-200 dark:border-zinc-700 dark:text-white p-4">
+<div class="w-full min-w-0 border rounded-lg border-zinc-200 dark:border-zinc-700 dark:text-white p-4">
     {{-- In work, do what you enjoy. --}}
     <flux:heading size="xl" class="font-semibold dark:semibold">{{ __('Recently Shared') }}</flux:heading>
     <div class="flex flex-col gap-4 mt-4">
